@@ -27,49 +27,64 @@ Resources:
             - 64512-64555
           edge-locations:
             - location: us-east-1
-#              asn: 64512
+            - location: us-west-1
             - location: eu-central-1
-#              asn: 64513
+            - location: eu-west-1
             - location: ap-northeast-1
-#              asn: 64514
+            - location: ap-southeast-2
         segments:
           - name: Share
             description: shared segment
-            require-attachment-acceptance: true
+            require-attachment-acceptance: fales
             edge-locations:
-              - eu-central-1
               - us-east-1
+              - us-west-1
+              - eu-central-1
+              - eu-west-1
               - ap-northeast-1
+              - ap-southeast-2
           - name: Blue
-            require-attachment-acceptance: true
+            require-attachment-acceptance: fales
             edge-locations:
-              - eu-central-1
               - us-east-1
+              - us-west-1
+              - eu-central-1
+              - eu-west-1
               - ap-northeast-1
+              - ap-southeast-2
           - name: Green
-            require-attachment-acceptance: true
+            require-attachment-acceptance: fales
             edge-locations:
-              - eu-central-1
               - us-east-1
+              - us-west-1
+              - eu-central-1
+              - eu-west-1
               - ap-northeast-1
+              - ap-southeast-2
           - name: Red
-            require-attachment-acceptance: true
+            require-attachment-acceptance: fales
             edge-locations:
               - eu-central-1
               - us-east-1
               - ap-northeast-1
           - name: Black
-            require-attachment-acceptance: true
+            require-attachment-acceptance: fales
             edge-locations:
-              - eu-central-1
               - us-east-1
+              - us-west-1
+              - eu-central-1
+              - eu-west-1
               - ap-northeast-1
+              - ap-southeast-2
           - name: VPN
-            require-attachment-acceptance: true
+            require-attachment-acceptance: fales
             edge-locations:
-              - eu-central-1
               - us-east-1
+              - us-west-1
+              - eu-central-1
+              - eu-west-1
               - ap-northeast-1
+              - ap-southeast-2
         segment-actions:
           - action: share
             mode: attachment-route
@@ -136,19 +151,6 @@ Resources:
             action:
               association-method: constant
               segment: VPN
-
-  NRTVPCBlueAttachment:
-    Type: "AWS::NetworkManager::VpcAttachment"
-    Properties:
-      CoreNetworkId: !Ref CoreNetwork
-      VpcArn:
-        Fn::ImportValue: !Sub "IAD-VPC-Blue"
-      SubnetArns:
-        - Fn::ImportValue: !Sub "IAD-VPC-Blue-CloudWANSubnetA"
-        - Fn::ImportValue: !Sub "IAD-VPC-Blue-CloudWANSubnetB"
-      Tags:
-        - Key: Name 
-          Value: 'IAD-VPC-Blue'
       
 Outputs:
   CoreNetworkId:
