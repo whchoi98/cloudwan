@@ -35,7 +35,7 @@ Resources:
         segments:
           - name: Share
             description: shared segment
-            require-attachment-acceptance: fales
+            require-attachment-acceptance: true
             edge-locations:
               - us-east-1
               - us-west-1
@@ -44,7 +44,7 @@ Resources:
               - ap-northeast-1
               - ap-southeast-2
           - name: Blue
-            require-attachment-acceptance: fales
+            require-attachment-acceptance: true
             edge-locations:
               - us-east-1
               - us-west-1
@@ -53,7 +53,7 @@ Resources:
               - ap-northeast-1
               - ap-southeast-2
           - name: Green
-            require-attachment-acceptance: fales
+            require-attachment-acceptance: true
             edge-locations:
               - us-east-1
               - us-west-1
@@ -62,13 +62,13 @@ Resources:
               - ap-northeast-1
               - ap-southeast-2
           - name: Red
-            require-attachment-acceptance: fales
+            require-attachment-acceptance: true
             edge-locations:
               - eu-central-1
               - us-east-1
               - ap-northeast-1
           - name: Black
-            require-attachment-acceptance: fales
+            require-attachment-acceptance: true
             edge-locations:
               - us-east-1
               - us-west-1
@@ -77,7 +77,7 @@ Resources:
               - ap-northeast-1
               - ap-southeast-2
           - name: VPN
-            require-attachment-acceptance: fales
+            require-attachment-acceptance: true
             edge-locations:
               - us-east-1
               - us-west-1
