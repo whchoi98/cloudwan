@@ -1,0 +1,17 @@
+version: "2021.12"
+core-network-configuration:
+  asn-ranges:
+    - 64512-65534
+  edge-locations:
+    - location: us-east-1
+segments:
+  - name: mynetwork
+    require-attachment-acceptance: false
+attachment-policies:
+  - rule-number: 100
+    condition-logic: and
+    conditions:
+      - type: any
+    action:
+      association-method: constant
+      segment: mynetwork

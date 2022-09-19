@@ -1,0 +1,166 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: CloudWAN Workshop test network
+Parameters:
+  UseInitialPolicy:
+    Type: String
+    Default: "Yes"
+    AllowedValues: ["Yes", "No"]
+
+Conditions:
+  UseInitialPolicy:
+    !Equals [!Ref UseInitialPolicy, "Yes"]
+
+Resources:
+
+  GlobalNet:
+    Type: AWS::NetworkManager::GlobalNetwork
+    Properties:
+      Description: CloudWAN Global Network
+      Tags:
+      - Key: Name
+        Value: !Ref AWS::StackName
+
+  CoreNetwork:
+    Type: AWS::NetworkManager::CoreNetwork
+    Properties:
+      GlobalNetworkId:
+        Fn::GetAtt:
+        - GlobalNet
+        - Id
+      PolicyDocument:
+        !If
+          - UseInitialPolicy
+          -
+            version: '2021.12'
+            core-network-configuration:
+              vpn-ecmp-support: false
+              asn-ranges:
+                - 64512-64555
+              edge-locations:
+                - location: us-east-1
+                - location : eu-central-1
+                - location : ap-northeast-1
+            segments:
+              - name: shared
+                description: shared segment
+                require-attachment-acceptance: true
+              - name: development
+                description: development segment
+                edge-locations:
+                  - us-east-1
+                  - eu-central-1
+                  - ap-northeast-1
+                require-attachment-acceptance: true
+              - name: production
+                description: production segment
+                edge-locations:
+                  - us-east-1
+                  - eu-central-1
+                  - ap-northeast-1
+                require-attachment-acceptance: true
+            segment-actions:
+              - action: share
+                mode: attachment-route
+                segment: shared
+                share-with: '*'
+            attachment-policies:
+              - rule-number: 100
+                condition-logic: or
+                conditions:
+                  - type: tag-value
+                    operator: equals
+                    key: segment
+                    value: shared
+                action:
+                  association-method: constant
+                  segment: shared
+              - rule-number: 200
+                condition-logic: or
+                conditions:
+                  - type: tag-value
+                    operator: equals
+                    key: segment
+                    value: development
+                action:
+                  association-method: constant
+                  segment: development
+              - rule-number: 300
+                condition-logic: or
+                conditions:
+                  - type: tag-value
+                    operator: equals
+                    key: segment
+                    value: production
+                action:
+                  association-method: constant
+                  segment: production
+          - 
+            version: '2021.12'
+            core-network-configuration:
+              vpn-ecmp-support: false
+              asn-ranges:
+                - 64512-64555
+              edge-locations:
+                - location: us-east-1
+            segments:
+              - name: shared
+                description: shared segment
+                require-attachment-acceptance: true
+              - name: development
+                description: development segment
+                edge-locations:
+                  - us-east-1
+                  - eu-central-1
+                  - ap-northeast-1
+                require-attachment-acceptance: true
+              - name: production
+                description: production segment
+                edge-locations:
+                  - us-east-1
+                  - eu-central-1
+                  - ap-northeast-1
+                require-attachment-acceptance: true
+              - name: finance
+                description: production segment
+                edge-locations:
+                  - us-east-1
+                  - eu-central-1
+                  - ap-northeast-1
+                require-attachment-acceptance: true
+            segment-actions:
+              - action: share
+                mode: attachment-route
+                segment: shared
+                share-with: '*'
+            attachment-policies:
+              - rule-number: 100
+                condition-logic: or
+                conditions:
+                  - type: tag-value
+                    operator: equals
+                    key: segment
+                    value: shared
+                action:
+                  association-method: constant
+                  segment: shared
+              - rule-number: 200
+                condition-logic: or
+                conditions:
+                  - type: tag-value
+                    operator: equals
+                    key: segment
+                    value: development
+                action:
+                  association-method: constant
+                  segment: development
+              - rule-number: 300
+                condition-logic: or
+                conditions:
+                  - type: tag-value
+                    operator: equals
+                    key: segment
+                    value: production
+                action:
+                  association-method: constant
+                  segment: production

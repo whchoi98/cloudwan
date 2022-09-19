@@ -1,0 +1,182 @@
+### AWS Cli 2.0 Install
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+source ~/.bashrc
+aws --version
+
+which aws_completer
+export PATH=/usr/local/bin:$PATH
+source ~/.bash_profile
+complete -C '/usr/local/bin/aws_completer' aws
+
+### Session Manager Plugin
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm" -o "session-manager-plugin.rpm"
+sudo sudo yum install -y session-manager-plugin.rpm
+
+### util setup
+
+sudo yum -y install jq gettext bash-completion moreutils
+for command in kubectl jq envsubst aws
+  do
+    which $command &>/dev/null && echo "$command in path" || echo "$command NOT FOUND"
+  done
+
+### SSH Key
+cd ~/environment/
+ssh-keygen
+
+cd ~/environment/
+mv ./mykey ./mykey.pem
+
+## key export
+cd ~/environment/
+aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region ap-northeast-1
+
+cd ~/environment/
+aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region us-east-1
+
+cd ~/environment/
+aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region eu-central-1
+
+cd ~/environment
+git clone https://github.com/whchoi98/cloudwan
+git clone https://github.com/whchoi98/useful-shell.git
+
+export KeyName=mykey
+echo "export KeyName=${KeyName}" | tee -a ~/.bash_profile
+source ~/.bash_profile
+
+## NRT VPC
+cd ./cloudwan
+aws cloudformation deploy \
+  --region ap-northeast-1 \
+  --stack-name "NRT-VPC-Blue" \
+  --template-file "/home/ec2-user/environment/cloudwan/NRT-VPC-Blue.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+aws cloudformation deploy \
+  --region ap-northeast-1 \
+  --stack-name "NRT-VPC-Green" \
+  --template-file "/home/ec2-user/environment/cloudwan/NRT-VPC-Green.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+aws cloudformation deploy \
+  --region ap-northeast-1 \
+  --stack-name "NRT-VPC-Red" \
+  --template-file "/home/ec2-user/environment/cloudwan/NRT-VPC-Red.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM 
+
+aws cloudformation deploy \
+  --region ap-northeast-1 \
+  --stack-name "NRT-VPC-Black" \
+  --template-file "/home/ec2-user/environment/cloudwan/NRT-VPC-Black.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+## IAD VPC
+cd ./cloudwan
+aws cloudformation deploy \
+  --region us-east-1\
+  --stack-name "IAD-VPC-Blue" \
+  --template-file "/home/ec2-user/environment/cloudwan/IAD-VPC-Blue.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM && \  
+aws cloudformation deploy \
+  --region us-east-1 \
+  --stack-name "IAD-VPC-Green" \
+  --template-file "/home/ec2-user/environment/cloudwan/IAD-VPC-Green.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+aws cloudformation deploy \
+  --region us-east-1\
+  --stack-name "IAD-VPC-Red" \
+  --template-file "/home/ec2-user/environment/cloudwan/IAD-VPC-Red.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+aws cloudformation deploy \
+  --region us-east-1 \
+  --stack-name "IAD-VPC-Black" \
+  --template-file "/home/ec2-user/environment/cloudwan/IAD-VPC-Black.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+cd ./cloudwan
+aws cloudformation deploy \
+  --region eu-central-1\
+  --stack-name "FRA-VPC-Blue" \
+  --template-file "/home/ec2-user/environment/cloudwan/FRA-VPC-Blue.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM && \
+aws cloudformation deploy \
+  --region eu-central-1\
+  --stack-name "FRA-VPC-Green" \
+  --template-file "/home/ec2-user/environment/cloudwan/FRA-VPC-Green.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+aws cloudformation deploy \
+  --region eu-central-1\
+  --stack-name "FRA-VPC-Red" \
+  --template-file "/home/ec2-user/environment/cloudwan/FRA-VPC-Red.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM 
+
+aws cloudformation deploy \
+  --region eu-central-1 \
+  --stack-name "FRA-VPC-Black" \
+  --template-file "/home/ec2-user/environment/cloudwan/FRA-VPC-Black.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+
+aws cloudformation deploy \
+  --region us-east-1 \
+  --stack-name "CoreNetwork" \
+  --template-file "/home/ec2-user/environment/cloudwan/CoreNetwork.yml" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+~/environment/useful-shell/aws_ec2_ext_nrt.sh | grep "Blue-Private" >> /home/ec2-user/environment/Blue-Private.txt
+~/environment/useful-shell/aws_ec2_ext_iad.sh | grep "Blue-Private" >> /home/ec2-user/environment/Blue-Private.txt
+~/environment/useful-shell/aws_ec2_ext_fra.sh | grep "Blue-Private" >> /home/ec2-user/environment/Blue-Private.txt
+
+~/environment/useful-shell/aws_ec2_ext_nrt.sh | grep "Green-Private" >> /home/ec2-user/environment/Green-Private.txt
+~/environment/useful-shell/aws_ec2_ext_iad.sh | grep "Green-Private" >> /home/ec2-user/environment/Green-Private.txt
+~/environment/useful-shell/aws_ec2_ext_fra.sh | grep "Green-Private" >> /home/ec2-user/environment/Green-Private.txt
+
+./aws_ec2_ext_nrt.sh | grep "Red-Private" >> /home/ec2-user/environment/Red-Private.txt
+./aws_ec2_ext_iad.sh | grep "Red-Private" >> /home/ec2-user/environment/Red-Private.txt
+./aws_ec2_ext_fra.sh | grep "Red-Private" >> /home/ec2-user/environment/Red-Private.txt
+
+./aws_ec2_ext_nrt.sh | grep "Black-Private" >> /home/ec2-user/environment/Black-Private.txt
+./aws_ec2_ext_iad.sh | grep "Black-Private" >> /home/ec2-user/environment/Black-Private.txt
+./aws_ec2_ext_fra.sh | grep "Black-Private" >> /home/ec2-user/environment/Black-Private.txt
+
+aws ssm start-session --target i-0b3ce905ab3e298c4 --region ap-northeast-1
+
+aws cloudformation deploy \
+  --region ap-northeast-2\
+  --stack-name "Seoul-PRD" \
+  --template-file "/home/ec2-user/environment/cloudwan/Seoul-VPC.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+
+aws cloudformation deploy \
+  --region ap-northeast-2\
+  --stack-name "Seoul-VPN" \
+  --template-file "/home/ec2-user/environment/cloudwan/Seoul-VPN.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+aws cloudformation deploy \
+  --region us-east-1\
+  --stack-name "CoreNetwork" \
+  --template-file "/home/ec2-user/environment/cloudwan/CoreNetwork.yml"

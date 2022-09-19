@@ -1,0 +1,43 @@
+{
+    "version": "2021.12",
+    "core-network-configuration": {
+        "asn-ranges": ["64512-65534"],
+        "edge-locations": [
+            {"location": "us-east-1"},
+            {"location": "us-east-2"},
+            {"location": "eu-west-1"}
+        ]
+    },
+    "segments": [
+        {"name": "secured"},
+        {"name": "non-secured"}
+    ],
+    "attachment-policies": [
+        {
+            "rule-number": 100,
+            "conditions": [{
+                "type": "tag-value",
+                "key": "Network",
+                "value": "Secured",
+                "operator": "equals"
+            }],
+            "action": {
+            "association-method": "constant",
+            "segment": "secured"
+            }
+        },
+        {
+            "rule-number": 200,
+            "conditions": [{
+                "type": "tag-value",
+                "key": "Network",
+                "value": "Non-Secured",
+                "operator": "equals"
+        }],
+        "action": {
+            "association-method": "constant",
+            "segment": "non-secured"
+            }
+        }
+    ]
+}

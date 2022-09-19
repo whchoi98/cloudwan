@@ -1,0 +1,60 @@
+{
+    "version": "2021.12",
+    "core-network-configuration": {
+        "asn-ranges": ["64512-65534"],
+        "edge-locations": [
+            {"location": "us-east-1"},
+            {"location": "eu-west-1"}
+        ]
+    },
+    "segments": [
+        {
+            "name": "development",
+            "isolate-attachments": true,
+            "require-attachment-acceptance": false
+        },
+        {"name": "hybrid"}
+    ],
+    "segment-actions": [
+        {
+            "action": "share",
+            "mode": "attachment-route",
+            "segment": "development",
+            "share-with": ["hybrid"]
+        },
+        {
+            "action": "create-route",
+            "destination-cidr-blocks": ["0.0.0.0/0"],
+            "segment": "development",
+            "destinations": ["attachment-12355678901234567", "attachment-23456789012345678"]
+        }
+    ],
+    "attachment-policies": [
+        {
+            "rule-number": 10,
+            "conditions": [
+                {
+                    "type": "attachment-type",
+                    "operator": "equals",
+                    "value": "vpc"
+                }
+            ],
+            "action": {
+                "association-method": "constant",
+                "segment": "development"
+            }
+        },
+        {
+            "rule-number": 20,
+            "conditions": [{
+                "type": "attachment-type",
+                "operator": "equals",
+                "value": "vpn"
+            }],
+            "action": {
+                "association-method": "constant",
+                "segment": "hybrid"
+            }
+        }
+    ]
+}

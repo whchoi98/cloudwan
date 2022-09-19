@@ -1,0 +1,159 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudWAN Workshop core network
+Resources:
+  GlobalNetwork:
+    Type: "AWS::NetworkManager::GlobalNetwork"
+    Properties:
+      Description: Cloudwan Cloudformation Demo
+      Tags:
+        - Key: Env
+          Value: MyCloudWAN
+        - Key: Name
+          Value: MyCloudWAN
+  CoreNetwork:
+    Type: "AWS::NetworkManager::CoreNetwork"
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - E3002
+    Properties:
+      GlobalNetworkId: !Ref GlobalNetwork
+      PolicyDocument:
+        version: "2021.12"
+        core-network-configuration:
+          vpn-ecmp-support: false
+          asn-ranges:
+            - 64512-64555
+          edge-locations:
+            - location: us-east-1
+#              asn: 64512
+            - location: eu-central-1
+#              asn: 64513
+            - location: ap-northeast-1
+#              asn: 64514
+        segments:
+          - name: Share
+            description: shared segment
+            require-attachment-acceptance: true
+            edge-locations:
+              - eu-central-1
+              - us-east-1
+              - ap-northeast-1
+          - name: Blue
+            require-attachment-acceptance: true
+            edge-locations:
+              - eu-central-1
+              - us-east-1
+              - ap-northeast-1
+          - name: Green
+            require-attachment-acceptance: true
+            edge-locations:
+              - eu-central-1
+              - us-east-1
+              - ap-northeast-1
+          - name: Red
+            require-attachment-acceptance: true
+            edge-locations:
+              - eu-central-1
+              - us-east-1
+              - ap-northeast-1
+          - name: Black
+            require-attachment-acceptance: true
+            edge-locations:
+              - eu-central-1
+              - us-east-1
+              - ap-northeast-1
+          - name: VPN
+            require-attachment-acceptance: true
+            edge-locations:
+              - eu-central-1
+              - us-east-1
+              - ap-northeast-1
+        segment-actions:
+          - action: share
+            mode: attachment-route
+            segment: Share
+            share-with: "*"
+        attachment-policies:
+          - rule-number: 100
+            condition-logic: or
+            conditions:
+              - type: tag-value
+                operator: equals
+                key: segment
+                value: Share
+            action:
+              association-method: constant
+              segment: Share
+          - rule-number: 200
+            condition-logic: or
+            conditions:
+              - type: tag-value
+                operator: equals
+                key: segment
+                value: Blue
+            action:
+              association-method: constant
+              segment: Blue
+          - rule-number: 300
+            condition-logic: or
+            conditions:
+              - type: tag-value
+                operator: equals
+                key: segment
+                value: Green
+            action:
+              association-method: constant
+              segment: Green
+          - rule-number: 400
+            condition-logic: or
+            conditions:
+              - type: tag-value
+                operator: equals
+                key: segment
+                value: Red
+            action:
+              association-method: constant
+              segment: Red
+          - rule-number: 500
+            condition-logic: or
+            conditions:
+              - type: tag-value
+                operator: equals
+                key: segment
+                value: Black
+            action:
+              association-method: constant
+              segment: Black
+          - rule-number: 600
+            condition-logic: or
+            conditions:
+              - type: tag-value
+                operator: equals
+                key: segment
+                value: VPN
+            action:
+              association-method: constant
+              segment: VPN
+
+  NRTVPCBlueAttachment:
+    Type: "AWS::NetworkManager::VpcAttachment"
+    Properties:
+      CoreNetworkId: !Ref CoreNetwork
+      VpcArn:
+        Fn::ImportValue: !Sub "IAD-VPC-Blue"
+      SubnetArns:
+        - Fn::ImportValue: !Sub "IAD-VPC-Blue-CloudWANSubnetA"
+        - Fn::ImportValue: !Sub "IAD-VPC-Blue-CloudWANSubnetB"
+      Tags:
+        - Key: Name 
+          Value: 'IAD-VPC-Blue'
+      
+Outputs:
+  CoreNetworkId:
+    Value: !Ref CoreNetwork
+    Description: Core Netwrok Id
+  CoreNetworkArn:
+    Value: !GetAtt CoreNetwork.CoreNetworkArn
+    Description: Core Network ARN
