@@ -549,6 +549,13 @@ Resources:
             cd /var/www/html/
             sudo git clone https://github.com/whchoi98/ec2meta-webpage.git
             sudo systemctl restart httpd
+            cd /home/ec2-user/
+            sudo git clone https://github.com/whchoi98/cloudwan.git
+            cd /home/ec2-user/cloudwan/
+            sudo -s
+            cat hostfile >> /etc/hosts
+            chmode 755 ./bluepingshell.sh
+            chmode 755 ./greenpingshell.sh
             exit
 
   PublicAInstance2:
@@ -589,6 +596,13 @@ Resources:
             cd /var/www/html/
             sudo git clone https://github.com/whchoi98/ec2meta-webpage.git
             sudo systemctl restart httpd
+            cd /home/ec2-user/
+            sudo git clone https://github.com/whchoi98/cloudwan.git
+            cd /home/ec2-user/cloudwan/
+            sudo -s
+            cat hostfile >> /etc/hosts
+            chmode 755 ./bluepingshell.sh
+            chmode 755 ./greenpingshell.sh
             exit       
 
   PublicBInstance1:
@@ -629,6 +643,13 @@ Resources:
             cd /var/www/html/
             sudo git clone https://github.com/whchoi98/ec2meta-webpage.git
             sudo systemctl restart httpd
+            cd /home/ec2-user/
+            sudo git clone https://github.com/whchoi98/cloudwan.git
+            cd /home/ec2-user/cloudwan/
+            sudo -s
+            cat hostfile >> /etc/hosts
+            chmode 755 ./bluepingshell.sh
+            chmode 755 ./greenpingshell.sh
             exit 
 
   PublicBInstance2:
@@ -669,6 +690,13 @@ Resources:
             cd /var/www/html/
             sudo git clone https://github.com/whchoi98/ec2meta-webpage.git
             sudo systemctl restart httpd
+            cd /home/ec2-user/
+            sudo git clone https://github.com/whchoi98/cloudwan.git
+            cd /home/ec2-user/cloudwan/
+            sudo -s
+            cat hostfile >> /etc/hosts
+            chmode 755 ./bluepingshell.sh
+            chmode 755 ./greenpingshell.sh
             exit
 
 
@@ -707,6 +735,13 @@ Resources:
             cd /var/www/html/
             sudo git clone https://github.com/whchoi98/ec2meta-webpage.git
             sudo systemctl restart httpd
+            cd /home/ec2-user/
+            sudo git clone https://github.com/whchoi98/cloudwan.git
+            cd /home/ec2-user/cloudwan/
+            sudo -s
+            cat hostfile >> /etc/hosts
+            chmode 755 ./bluepingshell.sh
+            chmode 755 ./greenpingshell.sh
             exit       
 
   PrivateAInstance2:
@@ -740,6 +775,13 @@ Resources:
             cd /var/www/html/
             sudo git clone https://github.com/whchoi98/ec2meta-webpage.git
             sudo systemctl restart httpd
+            cd /home/ec2-user/
+            sudo git clone https://github.com/whchoi98/cloudwan.git
+            cd /home/ec2-user/cloudwan/
+            sudo -s
+            cat hostfile >> /etc/hosts
+            chmode 755 ./bluepingshell.sh
+            chmode 755 ./greenpingshell.sh
             exit       
 
   PrivateBInstance1:
@@ -773,6 +815,13 @@ Resources:
             cd /var/www/html/
             sudo git clone https://github.com/whchoi98/ec2meta-webpage.git
             sudo systemctl restart httpd
+            cd /home/ec2-user/
+            sudo git clone https://github.com/whchoi98/cloudwan.git
+            cd /home/ec2-user/cloudwan/
+            sudo -s
+            cat hostfile >> /etc/hosts
+            chmode 755 ./bluepingshell.sh
+            chmode 755 ./greenpingshell.sh
             exit
 
   PrivateBInstance2:
@@ -806,6 +855,13 @@ Resources:
             cd /var/www/html/
             sudo git clone https://github.com/whchoi98/ec2meta-webpage.git
             sudo systemctl restart httpd
+            cd /home/ec2-user/
+            sudo git clone https://github.com/whchoi98/cloudwan.git
+            cd /home/ec2-user/cloudwan/
+            sudo -s
+            cat hostfile >> /etc/hosts
+            chmode 755 ./bluepingshell.sh
+            chmode 755 ./greenpingshell.sh
             exit
 
 
