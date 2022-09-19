@@ -1,3 +1,4 @@
+
 NRT-VPC-Blue-Public-10.21.11.101
 NRT-VPC-Blue-Public-10.21.11.102
 NRT-VPC-Blue-Public-10.21.12.101
@@ -46,6 +47,3 @@ DUB-VPC-Blue-Private-10.141.21.101
 DUB-VPC-Blue-Private-10.141.21.102
 DUB-VPC-Blue-Private-10.141.22.101
 DUB-VPC-Blue-Private-10.141.22.102
-
-
-
