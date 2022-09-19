@@ -1,3 +1,11 @@
+## Region
+NRT - ap-northeast-1 
+SYD - ap-southeast-2
+FRA - eu-central-1
+DUB - eu-west-1
+IAD - us-east-1
+PDX - us-west-2
+
 ### AWS Cli 2.0 Install
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -30,16 +38,16 @@ ssh-keygen
 
 cd ~/environment/
 mv ./mykey ./mykey.pem
+chmod 400 ./mykey.pem
 
 ## key export
 cd ~/environment/
 aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region ap-northeast-1
-
-cd ~/environment/
+aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region ap-southeast-2
 aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region us-east-1
-
-cd ~/environment/
+aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region us-west-2
 aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region eu-central-1
+aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region eu-west-1
 
 cd ~/environment
 git clone https://github.com/whchoi98/cloudwan
@@ -56,8 +64,7 @@ aws cloudformation deploy \
   --stack-name "NRT-VPC-Blue" \
   --template-file "/home/ec2-user/environment/cloudwan/NRT-VPC-Blue.yml" \
   --parameter-overrides "KeyPair=$KeyName" \
-  --capabilities CAPABILITY_NAMED_IAM
-
+  --capabilities CAPABILITY_NAMED_IAM &&
 aws cloudformation deploy \
   --region ap-northeast-1 \
   --stack-name "NRT-VPC-Green" \
@@ -65,17 +72,18 @@ aws cloudformation deploy \
   --parameter-overrides "KeyPair=$KeyName" \
   --capabilities CAPABILITY_NAMED_IAM
 
+## SYD VPC
+cd ./cloudwan
 aws cloudformation deploy \
-  --region ap-northeast-1 \
-  --stack-name "NRT-VPC-Red" \
-  --template-file "/home/ec2-user/environment/cloudwan/NRT-VPC-Red.yml" \
+  --region ap-southeast-2 \
+  --stack-name "SYD-VPC-Blue" \
+  --template-file "/home/ec2-user/environment/cloudwan/SYD-VPC-Blue.yml" \
   --parameter-overrides "KeyPair=$KeyName" \
-  --capabilities CAPABILITY_NAMED_IAM 
-
+  --capabilities CAPABILITY_NAMED_IAM &&
 aws cloudformation deploy \
-  --region ap-northeast-1 \
-  --stack-name "NRT-VPC-Black" \
-  --template-file "/home/ec2-user/environment/cloudwan/NRT-VPC-Black.yml" \
+  --region ap-southeast-2 \
+  --stack-name "SYD-VPC-Green" \
+  --template-file "/home/ec2-user/environment/cloudwan/SYD-VPC-Green.yml" \
   --parameter-overrides "KeyPair=$KeyName" \
   --capabilities CAPABILITY_NAMED_IAM
 
@@ -86,7 +94,7 @@ aws cloudformation deploy \
   --stack-name "IAD-VPC-Blue" \
   --template-file "/home/ec2-user/environment/cloudwan/IAD-VPC-Blue.yml" \
   --parameter-overrides "KeyPair=$KeyName" \
-  --capabilities CAPABILITY_NAMED_IAM && \  
+  --capabilities CAPABILITY_NAMED_IAM &&   
 aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "IAD-VPC-Green" \
@@ -94,20 +102,22 @@ aws cloudformation deploy \
   --parameter-overrides "KeyPair=$KeyName" \
   --capabilities CAPABILITY_NAMED_IAM
 
+## PDX VPC
+cd ./cloudwan
 aws cloudformation deploy \
-  --region us-east-1\
-  --stack-name "IAD-VPC-Red" \
-  --template-file "/home/ec2-user/environment/cloudwan/IAD-VPC-Red.yml" \
+  --region us-west-2\
+  --stack-name "PDX-VPC-Blue" \
+  --template-file "/home/ec2-user/environment/cloudwan/PDX-VPC-Blue.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM &&   
+aws cloudformation deploy \
+  --region us-west-2 \
+  --stack-name "PDX-VPC-Green" \
+  --template-file "/home/ec2-user/environment/cloudwan/PDX-VPC-Green.yml" \
   --parameter-overrides "KeyPair=$KeyName" \
   --capabilities CAPABILITY_NAMED_IAM
 
-aws cloudformation deploy \
-  --region us-east-1 \
-  --stack-name "IAD-VPC-Black" \
-  --template-file "/home/ec2-user/environment/cloudwan/IAD-VPC-Black.yml" \
-  --parameter-overrides "KeyPair=$KeyName" \
-  --capabilities CAPABILITY_NAMED_IAM
-
+## FRT VPC ###
 cd ./cloudwan
 aws cloudformation deploy \
   --region eu-central-1\
@@ -121,21 +131,6 @@ aws cloudformation deploy \
   --template-file "/home/ec2-user/environment/cloudwan/FRA-VPC-Green.yml" \
   --parameter-overrides "KeyPair=$KeyName" \
   --capabilities CAPABILITY_NAMED_IAM
-
-aws cloudformation deploy \
-  --region eu-central-1\
-  --stack-name "FRA-VPC-Red" \
-  --template-file "/home/ec2-user/environment/cloudwan/FRA-VPC-Red.yml" \
-  --parameter-overrides "KeyPair=$KeyName" \
-  --capabilities CAPABILITY_NAMED_IAM 
-
-aws cloudformation deploy \
-  --region eu-central-1 \
-  --stack-name "FRA-VPC-Black" \
-  --template-file "/home/ec2-user/environment/cloudwan/FRA-VPC-Black.yml" \
-  --parameter-overrides "KeyPair=$KeyName" \
-  --capabilities CAPABILITY_NAMED_IAM
-
 
 aws cloudformation deploy \
   --region us-east-1 \
