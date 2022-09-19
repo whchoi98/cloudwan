@@ -1,5 +1,5 @@
 #!/bin/bash
-# command cidr_table.sh
+# command blue_route_table_id.sh
 export NRT_VPC_Blue_CIDR='10.21.0.0/16'
 export SYD_VPC_Blue_CIDR='10.121.0.0/16'
 export IAD_VPC_Blue_CIDR='10.31.0.0/16'
