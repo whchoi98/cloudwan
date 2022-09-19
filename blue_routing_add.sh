@@ -1,31 +1,114 @@
 #!/bin/bash
 # command blue_route_table_id.sh
-export NRT_VPC_Blue_CIDR='10.21.0.0/16'
-export SYD_VPC_Blue_CIDR='10.121.0.0/16'
-export IAD_VPC_Blue_CIDR='10.31.0.0/16'
-export PDX_VPC_Blue_CIDR='10.131.0.0/16'
-export FRA_VPC_Blue_CIDR='10.41.0.0/16'
-export DUB_VPC_Blue_CIDR='10.141.0.0/16'
-echo "export NRT_VPC_Blue_CIDR=${NRT_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
-echo "export SYD_VPC_Blue_CIDR=${SYD_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
-echo "export IAD_VPC_Blue_CIDR=${IAD_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
-echo "export PDX_VPC_Blue_CIDR=${PDX_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
-echo "export FRA_VPC_Blue_CIDR=${FRA_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
-echo "export DUB_VPC_Blue_CIDR=${DUB_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
+# NRT Blue Public to Blue
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_PublicRT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_PublicRT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_PublicRT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_PublicRT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_PublicRT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+# NRT Blue Private to Blue
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
 
-export NRT_VPC_Green_CIDR='10.22.0.0/16'
-export SYD_VPC_Green_CIDR='10.122.0.0/16'
-export IAD_VPC_Green_CIDR='10.32.0.0/16'
-export PDX_VPC_Green_CIDR='10.132.0.0/16'
-export FRA_VPC_Green_CIDR='10.42.0.0/16'
-export DUB_VPC_Green_CIDR='10.142.0.0/16'
-echo "export NRT_VPC_Green_CIDR=${NRT_VPC_Green_CIDR}"| tee -a ~/.bash_profile
-echo "export SYD_VPC_Green_CIDR=${SYD_VPC_Green_CIDR}"| tee -a ~/.bash_profile
-echo "export IAD_VPC_Green_CIDR=${IAD_VPC_Green_CIDR}"| tee -a ~/.bash_profile
-echo "export PDX_VPC_Green_CIDR=${PDX_VPC_Green_CIDR}"| tee -a ~/.bash_profile
-echo "export FRA_VPC_Green_CIDR=${FRA_VPC_Green_CIDR}"| tee -a ~/.bash_profile
-echo "export DUB_VPC_Green_CIDR=${DUB_VPC_Green_CIDR}"| tee -a ~/.bash_profile
+# SYD Blue Public to Blue
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_PublicRT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_PublicRT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_PublicRT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_PublicRT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_PublicRT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+# SYD Blue Private to Blue 
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-southeast-2 --route-table-id $SYD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
 
+# IAD Blue Public to Blue
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_PublicRT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_PublicRT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_PublicRT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_PublicRT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_PublicRT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+# IAD Blue Private to Blue 
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-east-1 --route-table-id $IAD_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
 
+# PDX Blue Public to Blue
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_PublicRT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_PublicRT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_PublicRT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_PublicRT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_PublicRT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+# PDX Blue Private to Blue 
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region us-west-2 --route-table-id $PDX_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+
+# FRA Blue Public to Blue
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_PublicRT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_PublicRT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_PublicRT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_PublicRT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_PublicRT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+# FRA Blue Private to Blue 
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-central-1 --route-table-id $FRA_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
+
+# DUB Blue Public to Blue
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_PublicRT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_PublicRT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_PublicRT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_PublicRT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_PublicRT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+# DUB Blue Private to Blue 
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_A_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $NRT_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $SYD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $IAD_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $PDX_VPC_Blue_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region eu-west-1 --route-table-id $DUB_VPC_Blue_Private_Subnet_B_RT_id --destination-cidr-block $FRA_VPC_Blue_CIDR --core-network-arn $core_network_arn
+
+#delete sample
+#aws ec2 delete-route --region ap-northeast-1 --route-table-id $NRT_VPC_Blue_PublicRT_id --destination-cidr-block $DUB_VPC_Blue_CIDR --core-network-arn $core_network_arn
 
 source ~/.bash_profile
