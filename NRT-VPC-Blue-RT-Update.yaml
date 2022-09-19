@@ -94,7 +94,7 @@ Resources:
     Type: AWS::EC2::Route
     Properties:
       DestinationCidrBlock: !Ref SYDBLUEBlock
-      CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
+      core-network-arn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
         Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
 
@@ -102,7 +102,7 @@ Resources:
     Type: AWS::EC2::Route
     Properties:
       DestinationCidrBlock: !Ref IADBLUEBlock
-      CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
+      core-network-arn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
         Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
 
@@ -110,7 +110,7 @@ Resources:
     Type: AWS::EC2::Route
     Properties:
       DestinationCidrBlock: !Ref PDXBLUEBlock
-      CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
+      core-network-arn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
         Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
 
@@ -118,7 +118,7 @@ Resources:
     Type: AWS::EC2::Route
     Properties:
       DestinationCidrBlock: !Ref FRABLUEBlock
-      CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
+      core-network-arn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
         Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
 
@@ -126,6 +126,6 @@ Resources:
     Type: AWS::EC2::Route
     Properties:
       DestinationCidrBlock: !Ref DUBBLUEBlock
-      CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
+      core-network-arn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
         Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
