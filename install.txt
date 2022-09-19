@@ -132,11 +132,127 @@ aws cloudformation deploy \
   --parameter-overrides "KeyPair=$KeyName" \
   --capabilities CAPABILITY_NAMED_IAM
 
+## DUB VPC ###
+cd ./cloudwan
+aws cloudformation deploy \
+  --region eu-west-1\
+  --stack-name "DUB-VPC-Blue" \
+  --template-file "/home/ec2-user/environment/cloudwan/DUB-VPC-Blue.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM && \
+aws cloudformation deploy \
+  --region eu-west-1\
+  --stack-name "DUB-VPC-Green" \
+  --template-file "/home/ec2-user/environment/cloudwan/DUB-VPC-Green.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
+
+## corenetwork yaml deploy ##
 aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "CoreNetwork" \
   --template-file "/home/ec2-user/environment/cloudwan/CoreNetwork.yml" \
   --capabilities CAPABILITY_NAMED_IAM
+
+
+## NRT VPC Routing Update ##
+#aws cloudformation deploy \
+#  --region ap-northeast-1 \
+#  --stack-name "NRT-VPC-Blue-RT-Update" \
+#  --template-file "/home/ec2-user/environment/cloudwan/NRT-VPC-Blue-RT-Update.yml" \
+#  --capabilities CAPABILITY_NAMED_IAM
+
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Blue-PublicRT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Blue-Private-Subnet-A-RT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Blue-Private-Subnet-B-RT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Green-PublicRT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Green-Private-Subnet-A-RT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Green-Private-Subnet-B-RT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId'
+
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Blue-PublicRT' --region ap-southeast-2 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Blue-Private-Subnet-A-RT' --region ap-southeast-2 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Blue-Private-Subnet-B-RT' --region ap-southeast-2 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Green-PublicRT' --region ap-southeast-2 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Green-Private-Subnet-A-RT' --region ap-southeast-2 | jq -r '.RouteTables[].RouteTableId'
+aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Green-Private-Subnet-B-RT' --region ap-southeast-2 | jq -r '.RouteTables[].RouteTableId'
+
+
+export NRT_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Blue-PublicRT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId')
+export SYD_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Blue-PublicRT' --region ap-southeast-1 | jq -r '.RouteTables[].RouteTableId')
+export IAD_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=IAD-VPC-Blue-PublicRT' --region us-east-1 | jq -r '.RouteTables[].RouteTableId')
+export PDX_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=PDX-VPC-Blue-PublicRT' --region us-west-2 | jq -r '.RouteTables[].RouteTableId')
+export FRA_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=FRA-VPC-Blue-PublicRT' --region eu-central-1 | jq -r '.RouteTables[].RouteTableId')
+export DUB_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=DUB-VPC-Blue-PublicRT' --region eu-west-1 | jq -r '.RouteTables[].RouteTableId')
+
+export NRT_VPC_Blue_Private_Subnet_A_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Blue-Private-Subnet-A-RT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId')
+export SYD_VPC_Blue_Private_Subnet_A_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Blue-Private-Subnet-A-RT' --region ap-southeast-1 | jq -r '.RouteTables[].RouteTableId')
+export IAD_VPC_Blue_Private_Subnet_A_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=IAD-VPC-Blue-Private-Subnet-A-RT' --region us-east-1 | jq -r '.RouteTables[].RouteTableId')
+export PDX_VPC_Blue_Private_Subnet_A_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=PDX-VPC-Blue--Private-Subnet-A-RT' --region us-west-2 | jq -r '.RouteTables[].RouteTableId')
+export FRA_VPC_Blue_Private_Subnet_A_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=FRA-VPC-Blue-Private-Subnet-A-RT' --region eu-central-1 | jq -r '.RouteTables[].RouteTableId')
+export DUB_VPC_Blue_Private_Subnet_A_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=DUB-VPC-Blue-Private-Subnet-A-RT' --region eu-west-1 | jq -r '.RouteTables[].RouteTableId')
+
+export NRT_VPC_Blue_Private_Subnet_B_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Private-Subnet-B-RT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId')
+export SYD_VPC_Blue_Private_Subnet_B_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Private-Subnet-B-RT' --region ap-southeast-1 | jq -r '.RouteTables[].RouteTableId')
+export IAD_VPC_Blue_Private_Subnet_B_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=IAD-VPC-Private-Subnet-B-RT' --region us-east-1 | jq -r '.RouteTables[].RouteTableId')
+export PDX_VPC_Blue_Private_Subnet_B_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=PDX-VPC-Private-Subnet-B-RT' --region us-west-2 | jq -r '.RouteTables[].RouteTableId')
+export FRA_VPC_Blue_Private_Subnet_B_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=FRA-VPC-Private-Subnet-B-RT' --region eu-central-1 | jq -r '.RouteTables[].RouteTableId')
+export DUB_VPC_Blue_Private_Subnet_B_RT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=DUB-VPC-Private-Subnet-B-RT' --region eu-west-1 | jq -r '.RouteTables[].RouteTableId')
+
+echo "export NRT_VPC_Blue_PublicRT_id=${NRT_VPC_Blue_PublicRT_id}"| tee -a ~/.bash_profile
+echo "export SYD_VPC_Blue_PublicRT_id=${SYD_VPC_Blue_PublicRT_id}"| tee -a ~/.bash_profile
+echo "export IAD_VPC_Blue_PublicRT_id=${IAD_VPC_Blue_PublicRT_id}"| tee -a ~/.bash_profile
+echo "export PDX_VPC_Blue_PublicRT_id=${PDX_VPC_Blue_PublicRT_id}"| tee -a ~/.bash_profile
+echo "export FRA_VPC_Blue_PublicRT_id=${FRA_VPC_Blue_PublicRT_id}"| tee -a ~/.bash_profile
+echo "export DUB_VPC_Blue_PublicRT_id=${DUB_VPC_Blue_PublicRT_id}"| tee -a ~/.bash_profile
+
+echo "export NRT_VPC_Blue_PublicRT_id=${NRT_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
+echo "export SYD_VPC_Blue_PublicRT_id=${SYD_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
+echo "export IAD_VPC_Blue_PublicRT_id=${IAD_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
+echo "export PDX_VPC_Blue_PublicRT_id=${PDX_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
+echo "export FRA_VPC_Blue_PublicRT_id=${FRA_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
+echo "export DUB_VPC_Blue_PublicRT_id=${DUB_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
+
+echo "export NRT_VPC_Blue_PublicRT_id=${NRT_VPC_Private_Subnet_B_RT_id}"| tee -a ~/.bash_profile
+echo "export SYD_VPC_Blue_PublicRT_id=${SYD_VPC_Private_Subnet_B_RT_id}"| tee -a ~/.bash_profile
+echo "export IAD_VPC_Blue_PublicRT_id=${IAD_VPC_Private_Subnet_B_RT_id}"| tee -a ~/.bash_profile
+echo "export PDX_VPC_Blue_PublicRT_id=${PDX_VPC_Private_Subnet_B_RT_id}"| tee -a ~/.bash_profile
+echo "export FRA_VPC_Blue_PublicRT_id=${FRA_VPC_Private_Subnet_B_RT_id}"| tee -a ~/.bash_profile
+echo "export DUB_VPC_Blue_PublicRT_id=${DUB_VPC_Private_Subnet_B_RT_id}"| tee -a ~/.bash_profile
+
+aws cloudformation describe-stacks --stack-name CoreNetwork --region us-east-1 | jq -r '.Stacks[].Outputs' | grep networkmanager
+
+export core_network_arn='arn_output'
+echo "export core_network_arn=${core_network_arn}" | tee -a ~/.bash_profile
+export NRT_VPC_Blue_CIDR='10.21.0.0/16'
+export SYD_VPC_Blue_CIDR='10.121.0.0/16'
+export IAD_VPC_Blue_CIDR='10.31.0.0/16'
+export PDX_VPC_Blue_CIDR='10.131.0.0/16'
+export FRA_VPC_Blue_CIDR='10.41.0.0/16'
+export DUB_VPC_Blue_CIDR='10.141.0.0/16'
+echo "export NRT_VPC_Blue_CIDR=${NRT_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
+echo "export SYD_VPC_Blue_CIDR=${SYD_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
+echo "export IAD_VPC_Blue_CIDR=${IAD_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
+echo "export PDX_VPC_Blue_CIDR=${PDX_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
+echo "export FRA_VPC_Blue_CIDR=${FRA_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
+echo "export DUB_VPC_Blue_CIDR=${DUB_VPC_Blue_CIDR}"| tee -a ~/.bash_profile
+
+export NRT_VPC_Green_CIDR='10.22.0.0/16'
+export SYD_VPC_Green_CIDR='10.122.0.0/16'
+export IAD_VPC_Green_CIDR='10.32.0.0/16'
+export PDX_VPC_Green_CIDR='10.132.0.0/16'
+export FRA_VPC_Green_CIDR='10.42.0.0/16'
+export DUB_VPC_Green_CIDR='10.142.0.0/16'
+echo "export NRT_VPC_Green_CIDR=${NRT_VPC_Green_CIDR}"| tee -a ~/.bash_profile
+echo "export SYD_VPC_Green_CIDR=${SYD_VPC_Green_CIDR}"| tee -a ~/.bash_profile
+echo "export IAD_VPC_Green_CIDR=${IAD_VPC_Green_CIDR}"| tee -a ~/.bash_profile
+echo "export PDX_VPC_Green_CIDR=${PDX_VPC_Green_CIDR}"| tee -a ~/.bash_profile
+echo "export FRA_VPC_Green_CIDR=${FRA_VPC_Green_CIDR}"| tee -a ~/.bash_profile
+echo "export DUB_VPC_Green_CIDR=${DUB_VPC_Green_CIDR}"| tee -a ~/.bash_profile
+
+
+aws ec2 create-route --region ap-northeast-1 --route-table-id $SYD_VPC_Blue_PublicRT_id --destination-cidr-block 10.121.0.0/16 --core-network-arn $core-network-arn
+
+
 
 ~/environment/useful-shell/aws_ec2_ext_nrt.sh | grep "Blue-Private" >> /home/ec2-user/environment/Blue-Private.txt
 ~/environment/useful-shell/aws_ec2_ext_iad.sh | grep "Blue-Private" >> /home/ec2-user/environment/Blue-Private.txt
