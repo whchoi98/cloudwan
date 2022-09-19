@@ -1,5 +1,5 @@
 #!/bin/bash
-# command route_table_id.sh
+# command blue_route_table_id.sh
 export NRT_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=NRT-VPC-Blue-PublicRT' --region ap-northeast-1 | jq -r '.RouteTables[].RouteTableId')
 export SYD_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=SYD-VPC-Blue-PublicRT' --region ap-southeast-2 | jq -r '.RouteTables[].RouteTableId')
 export IAD_VPC_Blue_PublicRT_id=$(aws ec2 describe-route-tables --filters 'Name=tag:Name,Values=IAD-VPC-Blue-PublicRT' --region us-east-1 | jq -r '.RouteTables[].RouteTableId')
