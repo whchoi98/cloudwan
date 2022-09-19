@@ -32,8 +32,8 @@ echo "export NRT_VPC_Blue_Private_Subnet_A_RT_id=${NRT_VPC_Blue_Private_Subnet_A
 echo "export SYD_VPC_Blue_Private_Subnet_A_RT_id=${SYD_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
 echo "export IAD_VPC_Blue_Private_Subnet_A_RT_id=${IAD_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
 echo "export PDX_VPC_Blue_Private_Subnet_A_RT_id=${PDX_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
-echo "export FFRA_VPC_Blue_Private_Subnet_A_RT_id=${FRA_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
-echo "export DUB_VPC_Blue_Private_Subnet_A_RT_id}=${DUB_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
+echo "export FRA_VPC_Blue_Private_Subnet_A_RT_id=${FRA_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
+echo "export DUB_VPC_Blue_Private_Subnet_A_RT_id}${DUB_VPC_Blue_Private_Subnet_A_RT_id}"| tee -a ~/.bash_profile
 
 echo "export NRT_VPC_Blue_Private_Subnet_B_RT_id=${NRT_VPC_Blue_Private_Subnet_B_RT_id}"| tee -a ~/.bash_profile
 echo "export SYD_VPC_Blue_Private_Subnet_B_RT_id=${SYD_VPC_Blue_Private_Subnet_B_RT_id}"| tee -a ~/.bash_profile
