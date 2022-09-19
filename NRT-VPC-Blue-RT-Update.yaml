@@ -96,7 +96,7 @@ Resources:
       DestinationCidrBlock: !Ref SYDBLUEBlock
       CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
-        Fn::ImportValue: !Sub "NRT-VPC-PublicSubnetRouteTable"
+        Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
 
   IADBlueAddRoute1:
     Type: AWS::EC2::Route
@@ -104,7 +104,7 @@ Resources:
       DestinationCidrBlock: !Ref IADBLUEBlock
       CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
-        Fn::ImportValue: !Sub "NRT-VPC-PublicSubnetRouteTable"
+        Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
 
   PDXBlueAddRoute1:
     Type: AWS::EC2::Route
@@ -112,7 +112,7 @@ Resources:
       DestinationCidrBlock: !Ref PDXBLUEBlock
       CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
-        Fn::ImportValue: !Sub "NRT-VPC-PublicSubnetRouteTable"
+        Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
 
   FRABlueAddRoute1:
     Type: AWS::EC2::Route
@@ -120,7 +120,7 @@ Resources:
       DestinationCidrBlock: !Ref FRABLUEBlock
       CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
-        Fn::ImportValue: !Sub "NRT-VPC-PublicSubnetRouteTable"
+        Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
 
   DUBBlueAddRoute1:
     Type: AWS::EC2::Route
@@ -128,4 +128,4 @@ Resources:
       DestinationCidrBlock: !Ref DUBBLUEBlock
       CoreNetworkArn: arn:aws:networkmanager::632992457200:core-network/core-network-0383952fbf8ee2bac
       RouteTableId: 
-        Fn::ImportValue: !Sub "NRT-VPC-PublicSubnetRouteTable"
+        Fn::ImportValue: !Sub "NRT-VPC-Blue-PublicSubnetRouteTable"
