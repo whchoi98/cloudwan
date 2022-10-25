@@ -1,5 +1,23 @@
 #!/bin/bash
 # command Green_route_table_id.sh
+# ICN Green Public to Green
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_PublicRT_id --destination-cidr-block $SYD_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_PublicRT_id --destination-cidr-block $IAD_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_PublicRT_id --destination-cidr-block $PDX_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_PublicRT_id --destination-cidr-block $FRA_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_PublicRT_id --destination-cidr-block $DUB_VPC_Green_CIDR --core-network-arn $core_network_arn
+# ICN Green Private to Green
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_A_RT_id --destination-cidr-block $SYD_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_A_RT_id --destination-cidr-block $IAD_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_A_RT_id --destination-cidr-block $PDX_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_A_RT_id --destination-cidr-block $FRA_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_A_RT_id --destination-cidr-block $DUB_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_B_RT_id --destination-cidr-block $SYD_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_B_RT_id --destination-cidr-block $IAD_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_B_RT_id --destination-cidr-block $PDX_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_B_RT_id --destination-cidr-block $FRA_VPC_Green_CIDR --core-network-arn $core_network_arn
+aws ec2 create-route --region ap-northeast-1 --route-table-id $ICN_VPC_Green_Private_Subnet_B_RT_id --destination-cidr-block $DUB_VPC_Green_CIDR --core-network-arn $core_network_arn
+
 # NRT Green Public to Green
 aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Green_PublicRT_id --destination-cidr-block $SYD_VPC_Green_CIDR --core-network-arn $core_network_arn
 aws ec2 create-route --region ap-northeast-1 --route-table-id $NRT_VPC_Green_PublicRT_id --destination-cidr-block $IAD_VPC_Green_CIDR --core-network-arn $core_network_arn

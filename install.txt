@@ -69,7 +69,7 @@ aws cloudformation deploy \
   --capabilities CAPABILITY_NAMED_IAM &&
 aws cloudformation deploy \
   --region ap-northeast-2 \
-  --stack-name "NRT-VPC-Green" \
+  --stack-name "ICN-VPC-Green" \
   --template-file "/home/ec2-user/environment/cloudwan/ICN-VPC-Green.yml" \
   --parameter-overrides "KeyPair=$KeyName" \
   --capabilities CAPABILITY_NAMED_IAM

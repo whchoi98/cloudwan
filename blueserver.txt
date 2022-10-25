@@ -1,3 +1,10 @@
+ICN-VPC-Blue-Public-10.11.11.101
+ICN-VPC-Blue-Public-10.11.11.102
+ICN-VPC-Blue-Public-10.11.12.101
+ICN-VPC-Blue-Public-10.11.12.102
+ICN-VPC-Blue-Private-10.11.21.101
+ICN-VPC-Blue-Private-10.11.21.102
+ICN-VPC-Blue-Private-10.11.22.101
 NRT-VPC-Blue-Public-10.21.11.101
 NRT-VPC-Blue-Public-10.21.11.102
 NRT-VPC-Blue-Public-10.21.12.101

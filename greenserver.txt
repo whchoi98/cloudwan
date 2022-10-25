@@ -1,3 +1,11 @@
+ICN-VPC-Green-Public-10.12.11.101
+ICN-VPC-Green-Public-10.12.11.102
+ICN-VPC-Green-Public-10.12.12.101
+ICN-VPC-Green-Public-10.12.12.102
+ICN-VPC-Green-Private-10.12.21.101
+ICN-VPC-Green-Private-10.12.21.102
+ICN-VPC-Green-Private-10.12.22.101
+ICN-VPC-Green-Private-10.12.22.102
 NRT-VPC-Green-Public-10.22.11.101
 NRT-VPC-Green-Public-10.22.11.102
 NRT-VPC-Green-Public-10.22.12.101
