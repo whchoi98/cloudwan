@@ -44,8 +44,8 @@ Resources:
     Properties:
       CoreNetworkId: !Ref CorenetworkID
       SubnetArns:
-        - Ref: IADVPCBlueCloudWANSubnetAARN
-        - Ref: IADVPCBlueCloudWANSubnetBARN
+        - !Ref IADVPCBlueCloudWANSubnetAARN
+        - !Ref IADVPCBlueCloudWANSubnetBARN
       Tags:
         - Key: segment
           Value: Blue
@@ -56,8 +56,8 @@ Resources:
     Properties:
       CoreNetworkId: !Ref CorenetworkID
       SubnetArns:
-        - Ref: IADVPCGreenCloudWANSubnetAARN
-        - Ref: IADVPCGreenCloudWANSubnetBARN
+        - !Ref IADVPCGreenCloudWANSubnetAARN
+        - !Ref IADVPCGreenCloudWANSubnetBARN
       Tags:
         - Key: segment
           Value: Green
