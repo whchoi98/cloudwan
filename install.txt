@@ -183,7 +183,22 @@ export corenetwork_arn="$(aws cloudformation describe-stacks --stack-name CoreNe
 echo "export corenetwork_arnn=${corenetwork_arn}" | tee -a ~/.bash_profile
 source ~/.bash_profile
 
-## Cloudwan attachment
+## IAD Attach Subnet ARN
+aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetA' --region us-east-1 | jq -r '.Subnets[].SubnetArn'
+export IAD_VPC_Blue_CloudWANSubnetA_ARN="$(aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetA' --region us-east-1 | jq -r '.Subnets[].SubnetArn')"
+echo "export IAD_VPC_Blue_CloudWANSubnetA_ARN=${IAD_VPC_Blue_CloudWANSubnetA_ARN}" | tee -a ~/.bash_profile
+aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetB' --region us-east-1 | jq -r '.Subnets[].SubnetArn'
+export IAD_VPC_Blue_CloudWANSubnetB_ARN="$(aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetB' --region us-east-1 | jq -r '.Subnets[].SubnetArn')"
+echo "export IAD_VPC_Blue_CloudWANSubnetB_ARN=${IAD_VPC_Blue_CloudWANSubnetB_ARN}" | tee -a ~/.bash_profile
+source ~/.bash_profile
+
+## VPC ARN
+aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].Tags[].Value' | grep arn 
+export IAD_VPC_Blue_ARN="$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].Tags[].Value' | grep arn)"
+echo "export IAD_VPC_Blue_ARN=${IAD_VPC_Blue_ARN}" | tee -a ~/.bash_profile
+source ~/.bash_profile
+
+## Cloudwan attachment - IAD
 aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "IADVPC-Attachment" \

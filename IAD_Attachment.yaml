@@ -13,6 +13,30 @@ Parameters:
     Description: "CorenetworkID"
     Type: String
     Default: "CorenetworkID"
+  IAD_VPC_Blue_CloudWANSubnetA_ARN:
+    Description: "IAD_VPC_Blue_CloudWANSubnetA_ARN"
+    Type: String
+    Default: "IAD_VPC_Blue_CloudWANSubnetA_ARN" 
+  IAD_VPC_Blue_CloudWANSubnetB_ARN:
+    Description: "IAD_VPC_Blue_CloudWANSubnetB_ARN"
+    Type: String
+    Default: "IAD_VPC_Blue_CloudWANSubnetB_ARN"
+  IAD_VPC_Green_CloudWANSubnetA_ARN:
+    Description: "IAD_VPC_Green_CloudWANSubnetA_ARN"
+    Type: String
+    Default: "IAD_VPC_Green_CloudWANSubnetA_ARN" 
+  IAD_VPC_Green_CloudWANSubnetB_ARN:
+    Description: "IAD_VPC_Green_CloudWANSubnetB_ARN"
+    Type: String
+    Default: "IAD_VPC_Green_CloudWANSubnetB_ARN"
+  IAD_VPC_Blue_ARN:
+    Description: "IAD_VPC_Blue_ARN"
+    Type: String
+    Default: "IAD_VPC_Blue_ARN"  
+  IAD_VPC_Green_ARN:
+    Description: "IAD_VPC_Blue_ARN"
+    Type: String
+    Default: "IAD_VPC_Blue_ARN"  
 
 Resources:
   IADBLUEVPCAttachment:
@@ -21,22 +45,8 @@ Resources:
       CoreNetworkId:
         - Ref: CorenetworkID
       SubnetArns:
-        - Fn::Join:
-            - ""
-            - - "arn:aws:ec2:"
-              - Ref: AWS::Region
-              - ":"
-              - Ref: AWS::AccountId
-              - ":subnet/"
-              - Fn::ImportValue: IAD-VPC-Blue-CloudWANSubnetA
-        - Fn::Join:
-            - ""
-            - - "arn:aws:ec2:"
-              - Ref: AWS::Region
-              - ":"
-              - Ref: AWS::AccountId
-              - ":subnet/"
-              - Fn::ImportValue: IAD-VPC-Blue-CloudWANSubnetB
+        - Ref: IAD_VPC_Blue_CloudWANSubnetA_ARN
+        - Ref: IAD_VPC_Blue_CloudWANSubnetB_ARN
       Tags:
         - Key: segment
           Value: Blue
