@@ -217,14 +217,7 @@ aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "IADVPC-Attachment" \
   --template-file "/home/ec2-user/environment/cloudwan/IAD_Attachment.yaml" \
-  --parameter-overrides \
-    "CorenetworkID=$corenetwork_id" \
-    "IAD_VPC_Blue_CloudWANSubnetA_ARN=$IAD_VPC_Blue_CloudWANSubnetA_ARN" \
-    "IAD_VPC_Blue_CloudWANSubnetB_ARN=$IAD_VPC_Blue_CloudWANSubnetB_ARN" \
-    "IAD_VPC_Green_CloudWANSubnetA_ARN=$IAD_VPC_Green_CloudWANSubnetA_ARN" \
-    "IAD_VPC_Green_CloudWANSubnetB_ARN=$IAD_VPC_Green_CloudWANSubnetB_ARN" \
-    "IAD_VPC_Blue_ARN=$IAD_VPC_Blue_ARN" \
-    "IAD_VPC_Green_ARN=$IAD_VPC_Green_ARN" \    
+  --parameter-overrides "CorenetworkID=$corenetwork_id" "IADVPCBlueCloudWANSubnetAARN=$IAD_VPC_Blue_CloudWANSubnetA_ARN" "IADVPCBlueCloudWANSubnetBARN=$IAD_VPC_Blue_CloudWANSubnetB_ARN" "IADVPCGreenCloudWANSubnetAARN=$IAD_VPC_Green_CloudWANSubnetA_ARN" "IADVPCGreenCloudWANSubnetBARN=$IAD_VPC_Green_CloudWANSubnetB_ARN" "IADVPCBlueARN=$IAD_VPC_Blue_ARN" "IADVPCGreenARN=$IAD_VPC_Green_ARN" \    
   --capabilities CAPABILITY_NAMED_IAM
 
 ## NRT VPC Routing Update ##

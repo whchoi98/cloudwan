@@ -13,27 +13,27 @@ Parameters:
     Description: "CorenetworkID"
     Type: String
     Default: "CorenetworkID"
-  IAD_VPC_Blue_CloudWANSubnetA_ARN:
+  IADVPCBlueCloudWANSubnetAARN:
     Description: "IAD_VPC_Blue_CloudWANSubnetA_ARN"
     Type: String
     Default: "IAD_VPC_Blue_CloudWANSubnetA_ARN" 
-  IAD_VPC_Blue_CloudWANSubnetB_ARN:
+  IADVPCBlueCloudWANSubnetBARN:
     Description: "IAD_VPC_Blue_CloudWANSubnetB_ARN"
     Type: String
     Default: "IAD_VPC_Blue_CloudWANSubnetB_ARN"
-  IAD_VPC_Green_CloudWANSubnetA_ARN:
+  IADVPCGreenCloudWANSubnetAARN:
     Description: "IAD_VPC_Green_CloudWANSubnetA_ARN"
     Type: String
     Default: "IAD_VPC_Green_CloudWANSubnetA_ARN" 
-  IAD_VPC_Green_CloudWANSubnetB_ARN:
+  IADVPCGreenCloudWANSubnetBARN:
     Description: "IAD_VPC_Green_CloudWANSubnetB_ARN"
     Type: String
     Default: "IAD_VPC_Green_CloudWANSubnetB_ARN"
-  IAD_VPC_Blue_ARN:
+  IADVPCBlueARN:
     Description: "IAD_VPC_Blue_ARN"
     Type: String
     Default: "IAD_VPC_Blue_ARN"  
-  IAD_VPC_Green_ARN:
+  IADVPCGreenARN:
     Description: "IAD_VPC_Blue_ARN"
     Type: String
     Default: "IAD_VPC_Blue_ARN"  
@@ -45,13 +45,13 @@ Resources:
       CoreNetworkId:
         - Ref: CorenetworkID
       SubnetArns:
-        - Ref: IAD_VPC_Blue_CloudWANSubnetA_ARN
-        - Ref: IAD_VPC_Blue_CloudWANSubnetB_ARN
+        - Ref: IADVPCBlueCloudWANSubnetAARN
+        - Ref: IADVPCBlueCloudWANSubnetBARN
       Tags:
         - Key: segment
           Value: Blue
       VpcArn:
-        - Ref: IAD_VPC_Blue_ARN
+        - Ref: IADVPCBlueARN
 
   IADGREENVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
@@ -59,11 +59,11 @@ Resources:
       CoreNetworkId:
         - Ref: CorenetworkID
       SubnetArns:
-        - Ref: IAD_VPC_Green_CloudWANSubnetA_ARN
-        - Ref: IAD_VPC_Green_CloudWANSubnetB_ARN
+        - Ref: IADVPCGreenCloudWANSubnetAARN
+        - Ref: IADVPCGreenCloudWANSubnetBARN
       Tags:
         - Key: segment
           Value: Green
       VpcArn:
-        - Ref: IAD_VPC_Green_ARN
+        - Ref: IADVPCGreenARN
         
