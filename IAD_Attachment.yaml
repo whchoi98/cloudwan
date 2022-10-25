@@ -5,7 +5,7 @@ Resources:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
       CoreNetworkId:
-        - Fn::ImportValue: CoreNetwork
+        - Fn::ImportValue: CoreNetworkID
       SubnetArns:
         - Fn::Join:
             - ""
@@ -41,7 +41,7 @@ Resources:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
       CoreNetworkId:
-        - Fn::ImportValue: CoreNetwork
+        - Fn::ImportValue: CoreNetworkID
       SubnetArns:
         - Fn::Join:
             - ""
