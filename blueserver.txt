@@ -1,4 +1,3 @@
-
 NRT-VPC-Blue-Public-10.21.11.101
 NRT-VPC-Blue-Public-10.21.11.102
 NRT-VPC-Blue-Public-10.21.12.101
