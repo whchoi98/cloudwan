@@ -53,10 +53,7 @@ Resources:
       Tags:
         - Key: segment
           Value: Blue
-      VpcArn:
-        - Fn::Join:
-          - ""
-          - - Ref: IADVPCBlueARN
+      VpcArn: !Ref IADVPCBlueARN
 
   IADGREENVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
@@ -72,8 +69,5 @@ Resources:
       Tags:
         - Key: segment
           Value: Green
-      VpcArn:
-        - Fn::Join:
-          - ""
-          - - Ref: IADVPCGreenARN
+      VpcArn: !Ref IADVPCGreenARN
         
