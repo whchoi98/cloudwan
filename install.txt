@@ -1,5 +1,6 @@
 ## Region
-NRT - ap-northeast-1 
+ICM - ap-northeast-2
+NRT - ap-northeast-1
 SYD - ap-southeast-2
 FRA - eu-central-1
 DUB - eu-west-1
@@ -42,6 +43,7 @@ chmod 400 ./mykey.pem
 
 ## key export
 cd ~/environment/
+aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region ap-northeast-2
 aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region ap-northeast-1
 aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region ap-southeast-2
 aws ec2 import-key-pair --key-name "mykey" --public-key-material fileb://./mykey.pub --region us-east-1
@@ -56,6 +58,21 @@ git clone https://github.com/whchoi98/useful-shell.git
 export KeyName=mykey
 echo "export KeyName=${KeyName}" | tee -a ~/.bash_profile
 source ~/.bash_profile
+
+## ICN VPC
+cd ./cloudwan
+aws cloudformation deploy \
+  --region ap-northeast-2 \
+  --stack-name "ICN-VPC-Blue" \
+  --template-file "/home/ec2-user/environment/cloudwan/ICN-VPC-Blue.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM &&
+aws cloudformation deploy \
+  --region ap-northeast-2 \
+  --stack-name "NRT-VPC-Green" \
+  --template-file "/home/ec2-user/environment/cloudwan/ICN-VPC-Green.yml" \
+  --parameter-overrides "KeyPair=$KeyName" \
+  --capabilities CAPABILITY_NAMED_IAM
 
 ## NRT VPC
 cd ./cloudwan
