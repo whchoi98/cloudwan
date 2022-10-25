@@ -173,6 +173,10 @@ Outputs:
   CoreNetworkId:
     Value: !Ref CoreNetwork
     Description: Core Netwrok Id
+    Export:
+      Name: !Sub "CoreNetworkID"
   CoreNetworkArn:
     Value: !GetAtt CoreNetwork.CoreNetworkArn
     Description: Core Network ARN
+    Export:
+      Name: !Sub "CoreNetworkARN"    

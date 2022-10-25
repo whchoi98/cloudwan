@@ -171,6 +171,12 @@ aws cloudformation deploy \
   --template-file "/home/ec2-user/environment/cloudwan/CoreNetwork.yml" \
   --capabilities CAPABILITY_NAMED_IAM
 
+## Cloudwan attachment
+aws cloudformation deploy \
+  --region us-east-1 \
+  --stack-name "IADVPC-Attachment" \
+  --template-file "/home/ec2-user/environment/cloudwan/IAD_Attachment.yaml" \
+  --capabilities CAPABILITY_NAMED_IAM
 
 ## NRT VPC Routing Update ##
 #aws cloudformation deploy \
