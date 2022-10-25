@@ -188,7 +188,7 @@ aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "IADVPC-Attachment" \
   --template-file "/home/ec2-user/environment/cloudwan/IAD_Attachment.yaml" \
-  --parameter--overrides \
+  --parameter-overrides \
     "CorenetworkID=$corenetwork_id" \
   --capabilities CAPABILITY_NAMED_IAM
 
