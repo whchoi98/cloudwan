@@ -171,11 +171,25 @@ aws cloudformation deploy \
   --template-file "/home/ec2-user/environment/cloudwan/CoreNetwork.yml" \
   --capabilities CAPABILITY_NAMED_IAM
 
+##CoreNetworkID##
+aws cloudformation describe-stacks --stack-name CoreNetwork --region us-east-1 | jq -r '.Stacks[].Outputs[].OutputValue' | awk NR==1
+export corenetwork_id="$(aws cloudformation describe-stacks --stack-name CoreNetwork --region us-east-1 | jq -r '.Stacks[].Outputs[].OutputValue' | awk NR==1)"
+echo "export corenetwork_id=${corenetwork_id}" | tee -a ~/.bash_profile
+source ~/.bash_profile
+
+##CoreNetwork ARN##
+aws cloudformation describe-stacks --stack-name CoreNetwork --region us-east-1 | jq -r '.Stacks[].Outputs[].OutputValue' | awk NR==2
+export corenetwork_arn="$(aws cloudformation describe-stacks --stack-name CoreNetwork --region us-east-1 | jq -r '.Stacks[].Outputs[].OutputValue' | awk NR==2)"
+echo "export corenetwork_arnn=${corenetwork_arn}" | tee -a ~/.bash_profile
+source ~/.bash_profile
+
 ## Cloudwan attachment
 aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "IADVPC-Attachment" \
   --template-file "/home/ec2-user/environment/cloudwan/IAD_Attachment.yaml" \
+  --parameter--overrides \
+    "CorenetworkID=$corenetwork_id" \
   --capabilities CAPABILITY_NAMED_IAM
 
 ## NRT VPC Routing Update ##
@@ -192,12 +206,6 @@ source ~/.bash_profile
 
 ##CIDR 주소##
 ~/environment/cloudwan/cidr_table.sh
-
-##CoreNetworkID ##
-aws cloudformation describe-stacks --stack-name CoreNetwork --region us-east-1 | jq -r '.Stacks[].Outputs' | grep networkmanager
-export core_network_arn='arn_output'
-echo "export core_network_arn=${core_network_arn}" | tee -a ~/.bash_profile
-source ~/.bash_profile
 
 ##routing table add##
 ~/environment/cloudwan/blue_routing_add.sh

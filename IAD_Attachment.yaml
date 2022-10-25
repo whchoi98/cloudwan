@@ -1,11 +1,25 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: IAD VPC Attachment for CloudWAN
+etadata:
+  "AWS::CloudFormation::Interface":
+    ParameterGroups:
+      - Label:
+          default: "VPC Parameters"
+        Parameters:
+         - CorenetworkID
+
+Parameters:
+  CorenetworkID:
+    Description: "CorenetworkID"
+    Type: String
+    Default: "CorenetworkID"
+
 Resources:
   IADBLUEVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
       CoreNetworkId:
-        - Fn::ImportValue: CoreNetworkID
+        - Ref: CorenetworkID
       SubnetArns:
         - Fn::Join:
             - ""
@@ -41,7 +55,7 @@ Resources:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
       CoreNetworkId:
-        - Fn::ImportValue: CoreNetworkID
+        - Ref: CorenetworkID
       SubnetArns:
         - Fn::Join:
             - ""
