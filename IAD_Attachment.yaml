@@ -45,13 +45,19 @@ Resources:
       CoreNetworkId:
         - Ref: CorenetworkID
       SubnetArns:
-        - Ref: IADVPCBlueCloudWANSubnetAARN
-        - Ref: IADVPCBlueCloudWANSubnetBARN
+        - Fn::Join:
+          - ""
+          - - Ref: IADVPCBlueCloudWANSubnetAARN
+        - Fn::Join:
+          - ""
+          - - Ref: IADVPCBlueCloudWANSubnetBARN
       Tags:
         - Key: segment
           Value: Blue
       VpcArn:
-        - Ref: IADVPCBlueARN
+        - Fn::Join:
+          - ""
+          - - Ref: IADVPCBlueARN
 
   IADGREENVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
@@ -59,11 +65,17 @@ Resources:
       CoreNetworkId:
         - Ref: CorenetworkID
       SubnetArns:
-        - Ref: IADVPCGreenCloudWANSubnetAARN
-        - Ref: IADVPCGreenCloudWANSubnetBARN
+        - Fn::Join:
+          - ""
+          - - Ref: IADVPCGreenCloudWANSubnetAARN
+        - Fn::Join:
+          - ""
+          - - Ref: IADVPCGreenCloudWANSubnetBARN
       Tags:
         - Key: segment
           Value: Green
       VpcArn:
-        - Ref: IADVPCGreenARN
+        - Fn::Join:
+          - ""
+          - - Ref: IADVPCGreenARN
         
