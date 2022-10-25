@@ -42,8 +42,7 @@ Resources:
   IADBLUEVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
-      CoreNetworkId:
-        - Ref: CorenetworkID
+      CoreNetworkId: !Ref CorenetworkID
       SubnetArns:
         - Fn::Join:
           - ""
@@ -62,8 +61,7 @@ Resources:
   IADGREENVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
-      CoreNetworkId:
-        - Ref: CorenetworkID
+      CoreNetworkId: !Ref CorenetworkID
       SubnetArns:
         - Fn::Join:
           - ""
