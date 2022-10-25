@@ -31,6 +31,7 @@ Resources:
             - location: us-west-2
             - location: eu-central-1
             - location: eu-west-1
+            - location: ap-northeast-2
             - location: ap-northeast-1
             - location: ap-southeast-2
         segments:
@@ -43,6 +44,7 @@ Resources:
               - us-west-2
               - eu-central-1
               - eu-west-1
+              - ap-northeast-2
               - ap-northeast-1
               - ap-southeast-2
           - name: Blue
@@ -53,6 +55,7 @@ Resources:
               - us-west-2
               - eu-central-1
               - eu-west-1
+              - ap-northeast-2
               - ap-northeast-1
               - ap-southeast-2
           - name: Green
@@ -63,6 +66,7 @@ Resources:
               - us-west-2
               - eu-central-1
               - eu-west-1
+              - ap-northeast-2
               - ap-northeast-1
               - ap-southeast-2
           - name: Red
@@ -73,6 +77,7 @@ Resources:
               - us-west-2
               - eu-central-1
               - eu-west-1
+              - ap-northeast-2
               - ap-northeast-1
               - ap-southeast-2
           - name: Black
@@ -83,6 +88,7 @@ Resources:
               - us-west-2
               - eu-central-1
               - eu-west-1
+              - ap-northeast-2
               - ap-northeast-1
               - ap-southeast-2
           - name: VPN
@@ -93,6 +99,7 @@ Resources:
               - us-west-2
               - eu-central-1
               - eu-west-1
+              - ap-northeast-2
               - ap-northeast-1
               - ap-southeast-2
         segment-actions:
