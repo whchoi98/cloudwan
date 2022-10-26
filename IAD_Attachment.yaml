@@ -125,10 +125,8 @@ Resources:
           Value: Blue
       VpcArn: 
         - Fn::Join:
-          - ""
-          - - "arn:"
-            - Ref: AWS::Partition
-            - ":ec2:"
+          - ''
+          - - 'arn:aws:ec2:'
             - Ref: AWS::Region
             - ":"
             - Ref: AWS::AccountId
@@ -161,10 +159,8 @@ Resources:
           Value: Green
       VpcArn: 
         - Fn::Join:
-          - ""
-          - - "arn:"
-            - Ref: AWS::Partition
-            - ":ec2:"
+          - ''
+          - - 'arn:aws:ec2:'
             - Ref: AWS::Region
             - ":"
             - Ref: AWS::AccountId
