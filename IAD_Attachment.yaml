@@ -7,6 +7,16 @@ Metadata:
           default: "VPC Parameters"
         Parameters:
          - CorenetworkID
+         - IADVPCBlueCloudWANSubnetAARN
+         - IADVPCBlueCloudWANSubnetBARN
+         - IADVPCGreenCloudWANSubnetAARN
+         - IADVPCGreenCloudWANSubnetBARN
+         - IADVPCBlueARN
+         - IADVPCGreenARN
+         - IADVPCBlueCloudWANSubnetAID
+         - IADVPCBlueCloudWANSubnetBID
+         - IADVPCGreenCloudWANSubnetAID
+         - IADVPCGreenCloudWANSubnetBID
 
 Parameters:
   CorenetworkID:
