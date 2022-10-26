@@ -221,11 +221,12 @@ source ~/.bash_profile
 
 ## VPC ID
 aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].VpcId'
-export IAD_VPC_Blue_Id="$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].VpcId')
+export IAD_VPC_Blue_Id="$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].VpcId')"
 echo "export IAD_VPC_Blue_Id=${IAD_VPC_Blue_Id}" | tee -a ~/.bash_profile
 aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Green --region us-east-1 | jq -r '.Vpcs[].VpcId'
-export IAD_VPC_Green_Id="$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Green --region us-east-1 | jq -r '.Vpcs[].VpcId')
+export IAD_VPC_Green_Id="$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Green --region us-east-1 | jq -r '.Vpcs[].VpcId')"
 echo "export IAD_VPC_Green_Id=${IAD_VPC_Green_Id}" | tee -a ~/.bash_profile
+source ~/.bash_profile
 
 ## VPC ARN
 aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].Tags[].Value' | grep arn 
@@ -243,7 +244,7 @@ aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "IADVPC-Attachment" \
   --template-file "/home/ec2-user/environment/cloudwan/IAD_Attachment.yaml" \
-  --parameter-overrides "CorenetworkID=$corenetwork_id" "IADVPCBlueCloudWANSubnetAARN=$IAD_VPC_Blue_CloudWANSubnetA_ARN" "IADVPCBlueCloudWANSubnetBARN=$IAD_VPC_Blue_CloudWANSubnetB_ARN" "IADVPCGreenCloudWANSubnetAARN=$IAD_VPC_Green_CloudWANSubnetA_ARN" "IADVPCGreenCloudWANSubnetBARN=$IAD_VPC_Green_CloudWANSubnetB_ARN" "IADVPCBlueARN=$IAD_VPC_Blue_ARN" "IADVPCGreenARN=$IAD_VPC_Green_ARN" "IADVPCBlueCloudWANSubnetAID=$IAD_VPC_Blue_CloudWANSubnetA_Id" "IADVPCBlueCloudWANSubnetBID=$IAD_VPC_Blue_CloudWANSubnetB_Id" "IADVPCGreenCloudWANSubnetAID=$IAD_VPC_Green_CloudWANSubnetA_Id" "IADVPCGreenCloudWANSubnetBID=$IAD_VPC_Green_CloudWANSubnetB_Id"    
+  --parameter-overrides "CorenetworkID=$corenetwork_id" "IADVPCBlueID=$IAD_VPC_Blue_Id" "IADVPCGreenID=$IAD_VPC_Green_Id" "IADVPCBlueCloudWANSubnetAARN=$IAD_VPC_Blue_CloudWANSubnetA_ARN" "IADVPCBlueCloudWANSubnetBARN=$IAD_VPC_Blue_CloudWANSubnetB_ARN" "IADVPCGreenCloudWANSubnetAARN=$IAD_VPC_Green_CloudWANSubnetA_ARN" "IADVPCGreenCloudWANSubnetBARN=$IAD_VPC_Green_CloudWANSubnetB_ARN" "IADVPCBlueARN=$IAD_VPC_Blue_ARN" "IADVPCGreenARN=$IAD_VPC_Green_ARN" "IADVPCBlueCloudWANSubnetAID=$IAD_VPC_Blue_CloudWANSubnetA_Id" "IADVPCBlueCloudWANSubnetBID=$IAD_VPC_Blue_CloudWANSubnetB_Id" "IADVPCGreenCloudWANSubnetAID=$IAD_VPC_Green_CloudWANSubnetA_Id" "IADVPCGreenCloudWANSubnetBID=$IAD_VPC_Green_CloudWANSubnetB_Id"    
 
 
 ## NRT VPC Routing Update ##
