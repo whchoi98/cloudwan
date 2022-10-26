@@ -2,7 +2,7 @@
 #!/bin/bash
 # command ./cloudwan_vpc.sh
 
-cd ./cloudwan
+cd ~/environment/cloudwan/
 aws cloudformation deploy \
   --region ap-northeast-2 \
   --stack-name "ICN-VPC-Blue" \
