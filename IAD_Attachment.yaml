@@ -113,8 +113,17 @@ Resources:
       Tags:
         - Key: segment
           Value: Blue
-      VpcArn: !Ref IADVPCBlueARN
-
+      VpcArn: 
+        - Fn::Join:
+          - ''
+          - - 'arn:'
+            - !Ref "AWS::Partition"
+            - ":ec2:"
+            - !Ref "AWS::Region"
+            - ":"
+            - !Ref "AWS::AccountId"
+            - ':vpc/'
+            - Fn::ImportValue: IAD-VPC-Green
   IADGREENVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
@@ -139,4 +148,14 @@ Resources:
       Tags:
         - Key: segment
           Value: Green
-      VpcArn: !Ref IADVPCGreenARN 
+      VpcArn: 
+        - Fn::Join:
+          - ''
+          - - 'arn:'
+            - !Ref "AWS::Partition"
+            - ":ec2:"
+            - !Ref "AWS::Region"
+            - ":"
+            - !Ref "AWS::AccountId"
+            - ':vpc/'
+            - Fn::ImportValue: IAD-VPC-Blue
