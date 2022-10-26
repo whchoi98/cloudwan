@@ -1,0 +1,92 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: DUB VPC Attachment for CloudWAN
+Metadata:
+  "AWS::CloudFormation::Interface":
+    ParameterGroups:
+      - Label:
+          default: "VPC Parameters"
+        Parameters:
+         - CorenetworkID
+         - DUBVPCBlueCloudWANSubnetAARN
+         - DUBVPCBlueCloudWANSubnetBARN
+         - DUBVPCGreenCloudWANSubnetAARN
+         - DUBVPCGreenCloudWANSubnetBARN
+         - DUBVPCBlueID
+         - DUBVPCGreenID
+
+Parameters:
+  CorenetworkID:
+    Description: "CorenetworkID"
+    Type: String
+    Default: "CorenetworkID"
+  DUBVPCBlueID:
+    Description: "DUBVPCBlueID"
+    Type: String
+    Default: "DUBVPCBlueID"
+  DUBVPCGreenID:
+    Description: "DUBVPCGreenID"
+    Type: String
+    Default: "DUBVPCGreenID"  
+  DUBVPCBlueCloudWANSubnetAARN:
+    Description: "DUB_VPC_Blue_CloudWANSubnetA_ARN"
+    Type: String
+    Default: "DUB_VPC_Blue_CloudWANSubnetA_ARN" 
+  DUBVPCBlueCloudWANSubnetBARN:
+    Description: "DUB_VPC_Blue_CloudWANSubnetB_ARN"
+    Type: String
+    Default: "DUB_VPC_Blue_CloudWANSubnetB_ARN"
+  DUBVPCGreenCloudWANSubnetAARN:
+    Description: "DUB_VPC_Green_CloudWANSubnetA_ARN"
+    Type: String
+    Default: "DUB_VPC_Green_CloudWANSubnetA_ARN" 
+  DUBVPCGreenCloudWANSubnetBARN:
+    Description: "DUB_VPC_Green_CloudWANSubnetB_ARN"
+    Type: String
+    Default: "DUB_VPC_Green_CloudWANSubnetB_ARN"
+
+Resources:
+  DUBBLUEVPCAttachment:
+    Type: AWS::NetworkManager::VpcAttachment
+    Properties:
+      CoreNetworkId: 
+        Ref: CorenetworkID
+      SubnetArns:
+        - Ref: DUBVPCBlueCloudWANSubnetAARN
+        - Ref: DUBVPCBlueCloudWANSubnetBARN
+      Tags:
+        - Key: segment
+          Value: Blue
+      VpcArn: 
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":ec2:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":vpc/"
+            - Ref: DUBVPCBlueID
+
+  DUBGREENVPCAttachment:
+    Type: AWS::NetworkManager::VpcAttachment
+    Properties:
+      CoreNetworkId: 
+        Ref: CorenetworkID
+      SubnetArns:
+        - Ref: DUBVPCGreenCloudWANSubnetAARN
+        - Ref: DUBVPCGreenCloudWANSubnetBARN
+      Tags:
+        - Key: segment
+          Value: Green
+      VpcArn: 
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":ec2:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":vpc/"
+            - Ref: DUBVPCGreenID

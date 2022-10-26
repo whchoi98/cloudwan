@@ -1,0 +1,92 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: ICN VPC Attachment for CloudWAN
+Metadata:
+  "AWS::CloudFormation::Interface":
+    ParameterGroups:
+      - Label:
+          default: "VPC Parameters"
+        Parameters:
+         - CorenetworkID
+         - ICNVPCBlueCloudWANSubnetAARN
+         - ICNVPCBlueCloudWANSubnetBARN
+         - ICNVPCGreenCloudWANSubnetAARN
+         - ICNVPCGreenCloudWANSubnetBARN
+         - ICNVPCBlueID
+         - ICNVPCGreenID
+
+Parameters:
+  CorenetworkID:
+    Description: "CorenetworkID"
+    Type: String
+    Default: "CorenetworkID"
+  ICNVPCBlueID:
+    Description: "ICNVPCBlueID"
+    Type: String
+    Default: "ICNVPCBlueID"
+  ICNVPCGreenID:
+    Description: "ICNVPCGreenID"
+    Type: String
+    Default: "ICNVPCGreenID"  
+  ICNVPCBlueCloudWANSubnetAARN:
+    Description: "ICN_VPC_Blue_CloudWANSubnetA_ARN"
+    Type: String
+    Default: "ICN_VPC_Blue_CloudWANSubnetA_ARN" 
+  ICNVPCBlueCloudWANSubnetBARN:
+    Description: "ICN_VPC_Blue_CloudWANSubnetB_ARN"
+    Type: String
+    Default: "ICN_VPC_Blue_CloudWANSubnetB_ARN"
+  ICNVPCGreenCloudWANSubnetAARN:
+    Description: "ICN_VPC_Green_CloudWANSubnetA_ARN"
+    Type: String
+    Default: "ICN_VPC_Green_CloudWANSubnetA_ARN" 
+  ICNVPCGreenCloudWANSubnetBARN:
+    Description: "ICN_VPC_Green_CloudWANSubnetB_ARN"
+    Type: String
+    Default: "ICN_VPC_Green_CloudWANSubnetB_ARN"
+
+Resources:
+  ICNBLUEVPCAttachment:
+    Type: AWS::NetworkManager::VpcAttachment
+    Properties:
+      CoreNetworkId: 
+        Ref: CorenetworkID
+      SubnetArns:
+        - Ref: ICNVPCBlueCloudWANSubnetAARN
+        - Ref: ICNVPCBlueCloudWANSubnetBARN
+      Tags:
+        - Key: segment
+          Value: Blue
+      VpcArn: 
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":ec2:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":vpc/"
+            - Ref: ICNVPCBlueID
+
+  ICNGREENVPCAttachment:
+    Type: AWS::NetworkManager::VpcAttachment
+    Properties:
+      CoreNetworkId: 
+        Ref: CorenetworkID
+      SubnetArns:
+        - Ref: ICNVPCGreenCloudWANSubnetAARN
+        - Ref: ICNVPCGreenCloudWANSubnetBARN
+      Tags:
+        - Key: segment
+          Value: Green
+      VpcArn: 
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":ec2:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":vpc/"
+            - Ref: ICNVPCGreenID

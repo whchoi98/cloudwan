@@ -1,0 +1,92 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: PDX VPC Attachment for CloudWAN
+Metadata:
+  "AWS::CloudFormation::Interface":
+    ParameterGroups:
+      - Label:
+          default: "VPC Parameters"
+        Parameters:
+         - CorenetworkID
+         - PDXVPCBlueCloudWANSubnetAARN
+         - PDXVPCBlueCloudWANSubnetBARN
+         - PDXVPCGreenCloudWANSubnetAARN
+         - PDXVPCGreenCloudWANSubnetBARN
+         - PDXVPCBlueID
+         - PDXVPCGreenID
+
+Parameters:
+  CorenetworkID:
+    Description: "CorenetworkID"
+    Type: String
+    Default: "CorenetworkID"
+  PDXVPCBlueID:
+    Description: "PDXVPCBlueID"
+    Type: String
+    Default: "PDXVPCBlueID"
+  PDXVPCGreenID:
+    Description: "PDXVPCGreenID"
+    Type: String
+    Default: "PDXVPCGreenID"  
+  PDXVPCBlueCloudWANSubnetAARN:
+    Description: "PDX_VPC_Blue_CloudWANSubnetA_ARN"
+    Type: String
+    Default: "PDX_VPC_Blue_CloudWANSubnetA_ARN" 
+  PDXVPCBlueCloudWANSubnetBARN:
+    Description: "PDX_VPC_Blue_CloudWANSubnetB_ARN"
+    Type: String
+    Default: "PDX_VPC_Blue_CloudWANSubnetB_ARN"
+  PDXVPCGreenCloudWANSubnetAARN:
+    Description: "PDX_VPC_Green_CloudWANSubnetA_ARN"
+    Type: String
+    Default: "PDX_VPC_Green_CloudWANSubnetA_ARN" 
+  PDXVPCGreenCloudWANSubnetBARN:
+    Description: "PDX_VPC_Green_CloudWANSubnetB_ARN"
+    Type: String
+    Default: "PDX_VPC_Green_CloudWANSubnetB_ARN"
+
+Resources:
+  PDXBLUEVPCAttachment:
+    Type: AWS::NetworkManager::VpcAttachment
+    Properties:
+      CoreNetworkId: 
+        Ref: CorenetworkID
+      SubnetArns:
+        - Ref: PDXVPCBlueCloudWANSubnetAARN
+        - Ref: PDXVPCBlueCloudWANSubnetBARN
+      Tags:
+        - Key: segment
+          Value: Blue
+      VpcArn: 
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":ec2:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":vpc/"
+            - Ref: PDXVPCBlueID
+
+  PDXGREENVPCAttachment:
+    Type: AWS::NetworkManager::VpcAttachment
+    Properties:
+      CoreNetworkId: 
+        Ref: CorenetworkID
+      SubnetArns:
+        - Ref: PDXVPCGreenCloudWANSubnetAARN
+        - Ref: PDXVPCGreenCloudWANSubnetBARN
+      Tags:
+        - Key: segment
+          Value: Green
+      VpcArn: 
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":ec2:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":vpc/"
+            - Ref: PDXVPCGreenID
