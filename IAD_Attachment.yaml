@@ -11,12 +11,10 @@ Metadata:
          - IADVPCBlueCloudWANSubnetBARN
          - IADVPCGreenCloudWANSubnetAARN
          - IADVPCGreenCloudWANSubnetBARN
-         - IADVPCBlueARN
-         - IADVPCGreenARN
-         - IADVPCBlueCloudWANSubnetAID
-         - IADVPCBlueCloudWANSubnetBID
-         - IADVPCGreenCloudWANSubnetAID
-         - IADVPCGreenCloudWANSubnetBID
+#         - IADVPCBlueCloudWANSubnetAID
+#         - IADVPCBlueCloudWANSubnetBID
+#         - IADVPCGreenCloudWANSubnetAID
+#         - IADVPCGreenCloudWANSubnetBID
          - IADVPCBlueID
          - IADVPCGreenID
 
@@ -49,78 +47,32 @@ Parameters:
     Description: "IAD_VPC_Green_CloudWANSubnetB_ARN"
     Type: String
     Default: "IAD_VPC_Green_CloudWANSubnetB_ARN"
-  IADVPCBlueARN:
-    Description: "IAD_VPC_Blue_ARN"
-    Type: String
-    Default: "IAD_VPC_Blue_ARN"  
-  IADVPCGreenARN:
-    Description: "IAD_VPC_Blue_ARN"
-    Type: String
-    Default: "IAD_VPC_Blue_ARN"  
-  IADVPCBlueCloudWANSubnetAID:
-    Description: "IADVPCBlueCloudWANSubnetAID"
-    Type: String
-    Default: "IADVPCBlueCloudWANSubnetAID"
-  IADVPCBlueCloudWANSubnetBID:
-    Description: "IADVPCBlueCloudWANSubnetBID"
-    Type: String
-    Default: "IADVPCBlueCloudWANSubnetBID"
-  IADVPCGreenCloudWANSubnetAID:
-    Description: "IADVPCGreenCloudWANSubnetAID"
-    Type: String
-    Default: "IADVPCGreenCloudWANSubnetAID"
-  IADVPCGreenCloudWANSubnetBID:
-    Description: "IADVPCGreenCloudWANSubnetBID"
-    Type: String
-    Default: "IADVPCGreenCloudWANSubnetBID"    
+#  IADVPCBlueCloudWANSubnetAID:
+#    Description: "IADVPCBlueCloudWANSubnetAID"
+#    Type: String
+#    Default: "IADVPCBlueCloudWANSubnetAID"
+#  IADVPCBlueCloudWANSubnetBID:
+#    Description: "IADVPCBlueCloudWANSubnetBID"
+#    Type: String
+#    Default: "IADVPCBlueCloudWANSubnetBID"
+#  IADVPCGreenCloudWANSubnetAID:
+#    Description: "IADVPCGreenCloudWANSubnetAID"
+#    Type: String
+#    Default: "IADVPCGreenCloudWANSubnetAID"
+#  IADVPCGreenCloudWANSubnetBID:
+#    Description: "IADVPCGreenCloudWANSubnetBID"
+#    Type: String
+#    Default: "IADVPCGreenCloudWANSubnetBID"    
 
 Resources:
-#  IADBLUEVPCAttachment:
-#    Type: AWS::NetworkManager::VpcAttachment
-#    Properties:
-#      CoreNetworkId: Ref: CorenetworkID
-#      SubnetArns:
-#        - Ref: IADVPCBlueCloudWANSubnetAARN
-#        - Ref: IADVPCBlueCloudWANSubnetBARN
-#      Tags:
-#        - Key: segment
-#          Value: Blue
-#      VpcArn: Ref: IADVPCBlueARN
-#
-#  IADGREENVPCAttachment:
-#    Type: AWS::NetworkManager::VpcAttachment
-#    Properties:
-#      CoreNetworkId: Ref: CorenetworkID
-#      SubnetArns:
-#        - Ref: IADVPCGreenCloudWANSubnetAARN
-#        - Ref: IADVPCGreenCloudWANSubnetBARN
-#      Tags:
-#        - Key: segment
-#          Value: Green
-#      VpcArn: Ref: IADVPCGreenARNㅅ
-
   IADBLUEVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
       CoreNetworkId: 
         Ref: CorenetworkID
       SubnetArns:
-        - Fn::Join:
-          - ''
-          - - 'arn:aws:ec2:'
-            - Ref: "AWS::Region"
-            - ":"
-            - Ref: "AWS::AccountId"
-            - ':subnet/'
-            - Ref: IADVPCBlueCloudWANSubnetAID
-        - Fn::Join:
-          - ''
-          - - 'arn:aws:ec2:'
-            - Ref: "AWS::Region"
-            - ":"
-            - Ref: "AWS::AccountId"
-            - ':subnet/'
-            - Ref: IADVPCBlueCloudWANSubnetBID
+        - Ref: IADVPCBlueCloudWANSubnetAARN
+        - Ref: IADVPCBlueCloudWANSubnetBARN
       Tags:
         - Key: segment
           Value: Blue
@@ -142,22 +94,8 @@ Resources:
       CoreNetworkId: 
         Ref: CorenetworkID
       SubnetArns:
-        - Fn::Join:
-          - ''
-          - - 'arn:aws:ec2:'
-            - Ref: "AWS::Region"
-            - ":"
-            - Ref: "AWS::AccountId"
-            - ':subnet/'
-            - Ref: IADVPCGreenCloudWANSubnetAID
-        - Fn::Join:
-          - ''
-          - - 'arn:aws:ec2:'
-            - Ref: "AWS::Region"
-            - ":"
-            - Ref: "AWS::AccountId"
-            - ':subnet/'
-            - Ref: IADVPCGreenCloudWANSubnetBID
+        - Ref: IADVPCGreenCloudWANSubnetAARN
+        - Ref: IADVPCGreenCloudWANSubnetBARN
       Tags:
         - Key: segment
           Value: Green
@@ -172,3 +110,78 @@ Resources:
             - Ref: AWS::AccountId
             - ":vpc/"
             - Ref: IADVPCGreenID
+
+#  IADBLUEVPCAttachment:
+#    Type: AWS::NetworkManager::VpcAttachment
+#    Properties:
+#      CoreNetworkId: 
+#        Ref: CorenetworkID
+#      SubnetArns:
+#        - Fn::Join:
+#          - ''
+#          - - 'arn:aws:ec2:'
+#            - Ref: "AWS::Region"
+#            - ":"
+#            - Ref: "AWS::AccountId"
+#            - ':subnet/'
+#            - Ref: IADVPCBlueCloudWANSubnetAID
+#        - Fn::Join:
+#          - ''
+#          - - 'arn:aws:ec2:'
+#            - Ref: "AWS::Region"
+#            - ":"
+#            - Ref: "AWS::AccountId"
+#            - ':subnet/'
+#            - Ref: IADVPCBlueCloudWANSubnetBID
+#      Tags:
+#        - Key: segment
+#          Value: Blue
+#      VpcArn: 
+#        Fn::Join:
+#          - ""
+#          - - "arn:"
+#            - Ref: AWS::Partition
+#            - ":ec2:"
+#            - Ref: AWS::Region
+#            - ":"
+#            - Ref: AWS::AccountId
+#            - ":vpc/"
+#            - Ref: IADVPCBlueID
+#
+#  IADGREENVPCAttachment:
+#    Type: AWS::NetworkManager::VpcAttachment
+#    Properties:
+#      CoreNetworkId: 
+#        Ref: CorenetworkID
+#      SubnetArns:
+#        - Fn::Join:
+#          - ''
+#          - - 'arn:aws:ec2:'
+#            - Ref: "AWS::Region"
+#            - ":"
+#            - Ref: "AWS::AccountId"
+#            - ':subnet/'
+#            - Ref: IADVPCGreenCloudWANSubnetAID
+#        - Fn::Join:
+#          - ''
+#          - - 'arn:aws:ec2:'
+#            - Ref: "AWS::Region"
+#            - ":"
+#            - Ref: "AWS::AccountId"
+#            - ':subnet/'
+#            - Ref: IADVPCGreenCloudWANSubnetBID
+#      Tags:
+#        - Key: segment
+#          Value: Green
+#      VpcArn: 
+#        Fn::Join:
+#          - ""
+#          - - "arn:"
+#            - Ref: AWS::Partition
+#            - ":ec2:"
+#            - Ref: AWS::Region
+#            - ":"
+#            - Ref: AWS::AccountId
+#            - ":vpc/"
+#            - Ref: IADVPCGreenID
+#

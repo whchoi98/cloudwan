@@ -44,7 +44,7 @@ aws cloudformation deploy \
   --stack-name "IAD-VPC-Blue" \
   --template-file "/home/ec2-user/environment/cloudwan/IAD-VPC-Blue.yml" \
   --parameter-overrides "KeyPair=$KeyName" \
-  --capabilities CAPABILITY_NAMED_IAM & \ 
+  --capabilities CAPABILITY_NAMED_IAM & \
 aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "IAD-VPC-Green" \
