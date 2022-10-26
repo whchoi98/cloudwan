@@ -183,6 +183,24 @@ export corenetwork_arn="$(aws cloudformation describe-stacks --stack-name CoreNe
 echo "export corenetwork_arnn=${corenetwork_arn}" | tee -a ~/.bash_profile
 source ~/.bash_profile
 
+## IAD Attach Subnet ID
+aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetA' --region us-east-1 | jq -r '.Subnets[].SubnetId'
+export IAD_VPC_Blue_CloudWANSubnetA_Id="$(aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetA' --region us-east-1 | jq -r '.Subnets[].SubnetId')"
+echo "export IAD_VPC_Blue_CloudWANSubnetA_Id=${IAD_VPC_Blue_CloudWANSubnetA_Id}" | tee -a ~/.bash_profile
+
+aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetB' --region us-east-1 | jq -r '.Subnets[].SubnetId'
+export IAD_VPC_Blue_CloudWANSubnetB_Id="$(aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetB' --region us-east-1 | jq -r '.Subnets[].SubnetId')"
+echo "export IAD_VPC_Blue_CloudWANSubnetB_Id=${IAD_VPC_Blue_CloudWANSubnetB_Id}" | tee -a ~/.bash_profile
+
+aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Green-CloudWANSubnetA' --region us-east-1 | jq -r '.Subnets[].SubnetId'
+export IAD_VPC_Green_CloudWANSubnetA_Id="$(aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Green-CloudWANSubnetA' --region us-east-1 | jq -r '.Subnets[].SubnetId')"
+echo "export IAD_VPC_Green_CloudWANSubnetA_Id=${IAD_VPC_Green_CloudWANSubnetA_Id}" | tee -a ~/.bash_profile
+
+aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Green-CloudWANSubnetB' --region us-east-1 | jq -r '.Subnets[].SubnetId'
+export IAD_VPC_Green_CloudWANSubnetB_Id="$(aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Green-CloudWANSubnetB' --region us-east-1 | jq -r '.Subnets[].SubnetId')"
+echo "export IAD_VPC_Green_CloudWANSubnetB_Id=${IAD_VPC_Green_CloudWANSubnetB_Id}" | tee -a ~/.bash_profile
+source ~/.bash_profile
+
 ## IAD Attach Subnet ARN
 aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetA' --region us-east-1 | jq -r '.Subnets[].SubnetArn'
 export IAD_VPC_Blue_CloudWANSubnetA_ARN="$(aws ec2 describe-subnets --filter 'Name=tag:Name,Values=IAD-VPC-Blue-CloudWANSubnetA' --region us-east-1 | jq -r '.Subnets[].SubnetArn')"
@@ -217,7 +235,7 @@ aws cloudformation deploy \
   --region us-east-1 \
   --stack-name "IADVPC-Attachment" \
   --template-file "/home/ec2-user/environment/cloudwan/IAD_Attachment.yaml" \
-  --parameter-overrides "CorenetworkID=$corenetwork_id" "IADVPCBlueCloudWANSubnetAARN=$IAD_VPC_Blue_CloudWANSubnetA_ARN" "IADVPCBlueCloudWANSubnetBARN=$IAD_VPC_Blue_CloudWANSubnetB_ARN" "IADVPCGreenCloudWANSubnetAARN=$IAD_VPC_Green_CloudWANSubnetA_ARN" "IADVPCGreenCloudWANSubnetBARN=$IAD_VPC_Green_CloudWANSubnetB_ARN" "IADVPCBlueARN=$IAD_VPC_Blue_ARN" "IADVPCGreenARN=$IAD_VPC_Green_ARN" \    
+  --parameter-overrides "CorenetworkID=$corenetwork_id" "IADVPCBlueCloudWANSubnetAARN=$IAD_VPC_Blue_CloudWANSubnetA_ARN" "IADVPCBlueCloudWANSubnetBARN=$IAD_VPC_Blue_CloudWANSubnetB_ARN" "IADVPCGreenCloudWANSubnetAARN=$IAD_VPC_Green_CloudWANSubnetA_ARN" "IADVPCGreenCloudWANSubnetBARN=$IAD_VPC_Green_CloudWANSubnetB_ARN" "IADVPCBlueARN=$IAD_VPC_Blue_ARN" "IADVPCGreenARN=$IAD_VPC_Green_ARN" "IADVPCBlueCloudWANSubnetAID=$IAD_VPC_Blue_CloudWANSubnetA_Id" "IADVPCBlueCloudWANSubnetBID=$IAD_VPC_Blue_CloudWANSubnetB_Id" "IADVPCGreenCloudWANSubnetAID=$IAD_VPC_Green_CloudWANSubnetA_Id" "IADVPCGreenCloudWANSubnetBID=$IAD_VPC_Green_CloudWANSubnetB_Id"\    
   --capabilities CAPABILITY_NAMED_IAM
 
 ## NRT VPC Routing Update ##
