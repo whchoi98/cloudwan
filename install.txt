@@ -219,6 +219,14 @@ export IAD_VPC_Green_CloudWANSubnetB_ARN="$(aws ec2 describe-subnets --filter 'N
 echo "export IAD_VPC_Green_CloudWANSubnetB_ARN=${IAD_VPC_Green_CloudWANSubnetB_ARN}" | tee -a ~/.bash_profile
 source ~/.bash_profile
 
+## VPC ID
+aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].VpcId'
+export IAD_VPC_Blue_Id="$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].VpcId')
+echo "export IAD_VPC_Blue_Id=${IAD_VPC_Blue_Id}" | tee -a ~/.bash_profile
+aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Green --region us-east-1 | jq -r '.Vpcs[].VpcId'
+export IAD_VPC_Green_Id="$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Green --region us-east-1 | jq -r '.Vpcs[].VpcId')
+echo "export IAD_VPC_Green_Id=${IAD_VPC_Green_Id}" | tee -a ~/.bash_profile
+
 ## VPC ARN
 aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].Tags[].Value' | grep arn 
 export IAD_VPC_Blue_ARN="$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=IAD-VPC-Blue --region us-east-1 | jq -r '.Vpcs[].Tags[].Value' | grep arn)"

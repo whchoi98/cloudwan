@@ -17,12 +17,22 @@ Metadata:
          - IADVPCBlueCloudWANSubnetBID
          - IADVPCGreenCloudWANSubnetAID
          - IADVPCGreenCloudWANSubnetBID
+         - IADVPCBlueID
+         - IADVPCGreenID
 
 Parameters:
   CorenetworkID:
     Description: "CorenetworkID"
     Type: String
     Default: "CorenetworkID"
+  IADVPCBlueID:
+    Description: "IADVPCBlueID"
+    Type: String
+    Default: "IADVPCBlueID"
+  IADVPCGreenID:
+    Description: "IADVPCGreenID"
+    Type: String
+    Default: "IADVPCGreenID"  
   IADVPCBlueCloudWANSubnetAARN:
     Description: "IAD_VPC_Blue_CloudWANSubnetA_ARN"
     Type: String
@@ -123,7 +133,7 @@ Resources:
             - ":"
             - !Ref "AWS::AccountId"
             - ':vpc/'
-            - Fn::ImportValue: IAD-VPC-Green
+            - !Ref IADVPCBlueID
   IADGREENVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
@@ -158,4 +168,4 @@ Resources:
             - ":"
             - !Ref "AWS::AccountId"
             - ':vpc/'
-            - Fn::ImportValue: IAD-VPC-Blue
+            - !Ref IADVPCGreenID
