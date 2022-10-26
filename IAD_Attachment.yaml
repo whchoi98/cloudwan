@@ -41,10 +41,10 @@ Parameters:
     Description: "IADVPCBlueCloudWANSubnetAID"
     Type: String
     Default: "IADVPCBlueCloudWANSubnetAID"
-  IADVPCBlueCloudWANSubnetAID:
-    Description: "IADVPCGreenCloudWANSubnetAID"
+  IADVPCBlueCloudWANSubnetBID:
+    Description: "IADVPCBlueCloudWANSubnetBID"
     Type: String
-    Default: "IADVPCGreenCloudWANSubnetAID"
+    Default: "IADVPCBlueCloudWANSubnetBID"
   IADVPCGreenCloudWANSubnetAID:
     Description: "IADVPCGreenCloudWANSubnetAID"
     Type: String
