@@ -89,7 +89,7 @@ Resources:
           - - "arn:aws:ec2:"
             - Ref: AWS::Region
             - ":"
-            - Ref: AWS::AcountID
+            - Ref: AWS::AccountId
             - ":subnet/"
             - Ref: IADVPCBlueCloudWANSubnetAID
         - Fn::Join:
@@ -97,7 +97,7 @@ Resources:
           - - "arn:aws:ec2:"
             - Ref: AWS::Region
             - ":"
-            - Ref: AWS::AcountID
+            - Ref: AWS::AccountId
             - ":subnet/"
             - Ref: IADVPCBlueCloudWANSubnetBID
       Tags:
@@ -115,7 +115,7 @@ Resources:
           - - "arn:aws:ec2:"
             - Ref: AWS::Region
             - ":"
-            - Ref: AWS::AcountID
+            - Ref: AWS::AccountId
             - ":subnet/"
             - Ref: IADVPCGreenCloudWANSubnetAID
         - Fn::Join:
@@ -123,7 +123,7 @@ Resources:
           - - "arn:aws:ec2:"
             - Ref: AWS::Region
             - ":"
-            - Ref: AWS::AcountID
+            - Ref: AWS::AccountId
             - ":subnet/"
             - Ref: IADVPCGreenCloudWANSubnetBID
       Tags:
