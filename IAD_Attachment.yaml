@@ -124,9 +124,11 @@ Resources:
         - Key: segment
           Value: Blue
       VpcArn: 
-        - Fn::Join:
-          - ''
-          - - 'arn:aws:ec2:'
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":ec2:"
             - Ref: AWS::Region
             - ":"
             - Ref: AWS::AccountId
@@ -158,11 +160,13 @@ Resources:
         - Key: segment
           Value: Green
       VpcArn: 
-        - Fn::Join:
-          - ''
-          - - 'arn:aws:ec2:'
-            - Ref: AWS::Region
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - !Ref AWS::Partition
+            - ":ec2:"
+            - !Ref AWS::Region
             - ":"
-            - Ref: AWS::AccountId
+            - !Ref AWS::AccountId
             - ":vpc/"
-            - Ref: IADVPCGreenID
+            - !Ref IADVPCGreenID
