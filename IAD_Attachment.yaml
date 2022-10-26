@@ -125,15 +125,16 @@ Resources:
           Value: Blue
       VpcArn: 
         - Fn::Join:
-          - ''
-          - - 'arn:'
-            - !Ref "AWS::Partition"
+          - ""
+          - - "arn:"
+            - !Ref AWS::Partition
             - ":ec2:"
-            - !Ref "AWS::Region"
+            - !Ref AWS::Region
             - ":"
-            - !Ref "AWS::AccountId"
-            - ':vpc/'
+            - !Ref AWS::AccountId
+            - ":vpc/"
             - !Ref IADVPCBlueID
+
   IADGREENVPCAttachment:
     Type: AWS::NetworkManager::VpcAttachment
     Properties:
@@ -160,12 +161,12 @@ Resources:
           Value: Green
       VpcArn: 
         - Fn::Join:
-          - ''
-          - - 'arn:'
-            - !Ref "AWS::Partition"
+          - ""
+          - - "arn:"
+            - !Ref AWS::Partition
             - ":ec2:"
-            - !Ref "AWS::Region"
+            - !Ref AWS::Region
             - ":"
-            - !Ref "AWS::AccountId"
-            - ':vpc/'
+            - !Ref AWS::AccountId
+            - ":vpc/"
             - !Ref IADVPCGreenID
